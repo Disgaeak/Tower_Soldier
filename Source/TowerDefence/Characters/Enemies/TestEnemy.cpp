@@ -5,7 +5,7 @@
 
 ATestEnemy::ATestEnemy()
 {
-	HP = 10;
+	HP = 5;
 	Atk = 3;
 	Def = 1;
 	AtkSpd = 1.2;

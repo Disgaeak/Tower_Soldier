@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Engine/World.h"
+#include "Characters/NPCInterface.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ATowerDefenceCharacter
@@ -53,7 +55,7 @@ void ATowerDefenceCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-
+	PlayerInputComponent->BindAction("Talk", IE_Pressed, this, &ATowerDefenceCharacter::Interact);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATowerDefenceCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ATowerDefenceCharacter::MoveRight);
 
@@ -104,5 +106,36 @@ void ATowerDefenceCharacter::MoveRight(float Value)
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
+	}
+}
+
+FHitResult ATowerDefenceCharacter::Rayline()
+{
+	//start and end locations
+	FVector StartPoint = GetActorLocation();
+	FVector EndPoint = StartPoint + (GetActorForwardVector() * 300.f);
+
+	//create trace parameters for Line casting
+	FCollisionQueryParams TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
+	TraceParams.bTraceComplex = true;
+	TraceParams.bReturnPhysicalMaterial = false;
+	FHitResult HitRes(ForceInit); //Re-initialize hit info
+
+	//call GetWorld() from within an actor extending class
+	GetWorld()->LineTraceSingleByChannel(HitRes, StartPoint, EndPoint, ECC_Camera, TraceParams);
+
+	return HitRes;
+}
+
+void ATowerDefenceCharacter::Interact()
+{
+	if (Rayline().GetActor() != NULL)
+	{
+		INPCInterface* Target = Cast<INPCInterface>(Rayline().GetActor());
+
+		if (Target != nullptr)
+		{
+			Target->dialogue();
+		}
 	}
 }

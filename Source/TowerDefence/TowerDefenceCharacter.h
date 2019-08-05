@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "TowerDefenceCharacter.generated.h"
 
+class INPCInterface;
+
 UCLASS(config=Game)
 class ATowerDefenceCharacter : public ACharacter
 {
@@ -51,4 +53,11 @@ protected:
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+private:
+	//create rayline to check in front
+	FHitResult Rayline();
+
+	//interact action
+	void Interact();
 };

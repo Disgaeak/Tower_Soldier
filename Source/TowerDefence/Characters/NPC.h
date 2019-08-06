@@ -7,6 +7,8 @@
 #include "NPCInterface.h"
 #include "NPC.generated.h"
 
+class UWidgetControl;
+
 UCLASS()
 class TOWERDEFENCE_API ANPC : public ACharacter, public INPCInterface
 {
@@ -17,11 +19,7 @@ public:
 	ANPC();
 
 	//interface functions
-	virtual FText dialogue();
-	virtual Alliance GetAlly();
-
-	UPROPERTY(EditAnywhere, category = "Job")
-	Alliance jobName;
+	virtual void dialogue();
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,4 +27,8 @@ protected:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "UI", Meta = (BlueprintProtected = true))
+	UWidgetControl* widCon;
 };

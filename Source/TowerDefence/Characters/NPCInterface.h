@@ -13,16 +13,6 @@ class UNPCInterface : public UInterface
 	GENERATED_BODY()
 };
 
-UENUM()
-enum class Alliance : uint8
-{
-	None,
-	GateKeeper,
-	Officer,
-	Recruiter,
-	Merchant
-};
-
 class TOWERDEFENCE_API INPCInterface
 {
 	GENERATED_BODY()
@@ -30,6 +20,5 @@ class TOWERDEFENCE_API INPCInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	//message to get from NPC
-	virtual FText dialogue() = 0;
-	virtual Alliance GetAlly() = 0;
+	virtual void dialogue() = 0;
 };

@@ -7,6 +7,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Engine/World.h"
 #include "Characters/NPCInterface.h"
@@ -66,6 +67,15 @@ void ATowerDefenceCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAxis("TurnRate", this, &ATowerDefenceCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ATowerDefenceCharacter::LookUpAtRate);
+}
+
+void ATowerDefenceCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PC = Cast<APlayerController>(GetController());
+	if (PC != nullptr)
+		UE_LOG(LogTemp, Warning, TEXT("Yay"))
 }
 
 void ATowerDefenceCharacter::TurnAtRate(float Rate)
@@ -129,13 +139,19 @@ FHitResult ATowerDefenceCharacter::Rayline()
 
 void ATowerDefenceCharacter::Interact()
 {
-	if (Rayline().GetActor() != NULL)
+	FName HitTag;
+
+	//checks to see if actor is valid and initiate dialogue
+	if (Rayline().GetActor() != NULL && Rayline().GetActor()->Tags.Num() > 0)
 	{
 		INPCInterface* Target = Cast<INPCInterface>(Rayline().GetActor());
 
 		if (Target != nullptr)
 		{
 			Target->dialogue();
+			//GetCharacterMovement()->MaxWalkSpeed = 0.f;
+			PC->bShowMouseCursor = true;
+			DisableInput(PC);
 		}
 	}
 }

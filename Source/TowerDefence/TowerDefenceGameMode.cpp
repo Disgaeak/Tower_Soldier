@@ -13,3 +13,7 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+
+void ATowerDefenceGameMode::BeginPlay()
+{
+}

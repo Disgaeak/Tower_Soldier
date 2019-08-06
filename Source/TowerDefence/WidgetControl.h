@@ -14,4 +14,10 @@ class TOWERDEFENCE_API UWidgetControl : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(BlueprintReadWrite, category = "dialogue")
+	FString Message;
+
+	UFUNCTION(BlueprintCallable)
+	FString GetDialogue();
 };

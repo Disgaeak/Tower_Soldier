@@ -13,7 +13,7 @@ class ATowerDefenceGameMode : public AGameModeBase
 
 public:
 	ATowerDefenceGameMode();
+
+private:
+	virtual void BeginPlay() override;
 };
-
-
-

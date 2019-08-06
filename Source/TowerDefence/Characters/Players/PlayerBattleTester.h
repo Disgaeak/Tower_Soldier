@@ -18,5 +18,7 @@ public:
 	APlayerBattleTester();
 
 private:
+	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
 };

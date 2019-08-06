@@ -2,6 +2,9 @@
 
 
 #include "NPC.h"
+#include "../WidgetControl.h"
+#include "Engine/World.h"
+#include "Blueprint/UserWidget.h"
 
 // Sets default values
 ANPC::ANPC()
@@ -15,7 +18,6 @@ ANPC::ANPC()
 void ANPC::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -25,13 +27,11 @@ void ANPC::Tick(float DeltaTime)
 
 }
 
-FText ANPC::dialogue()
+void ANPC::dialogue()
 {
-	FText basic = FText::FromString("where'ya headed?");
-	return basic;
-}
-
-Alliance ANPC::GetAlly()
-{
-	return jobName;
+	if (widCon != nullptr)
+	{
+		widCon->Message = "Test";
+		widCon->AddToViewport();
+	}
 }

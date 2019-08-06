@@ -55,9 +55,13 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	virtual void BeginPlay() override;
+
 	//create rayline to check in front
 	FHitResult Rayline();
 
 	//interact action
 	void Interact();
+
+	APlayerController* PC;
 };

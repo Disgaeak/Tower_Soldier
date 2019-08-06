@@ -17,3 +17,11 @@ APlayerBattleTester::APlayerBattleTester()
 	Def = 1;
 	AtkSpd = 2.f;
 }
+
+void APlayerBattleTester::BeginPlay()
+{
+}
+
+void APlayerBattleTester::Tick(float DeltaTime)
+{
+}

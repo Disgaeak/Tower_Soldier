@@ -5,6 +5,7 @@
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABattleCam::ABattleCam()
@@ -37,6 +38,19 @@ void ABattleCam::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABattleCam::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABattleCam::MoveRight);
+	PlayerInputComponent->BindAction("BattleAction", IE_Pressed, this, &ABattleCam::Point);
+}
+
+void ABattleCam::Point()
+{
+	FActorSpawnParameters SpawnInfo;
+	
+
+	if (TestSpawn != nullptr)
+	{
+		AActor* Spawnd = GetWorld()->SpawnActor<AActor>(TestSpawn);
+		Spawnd->SetActorLocation(RayLine().Location);
+	}
 }
 
 void ABattleCam::MoveForward(float Value)
@@ -67,9 +81,15 @@ void ABattleCam::MoveRight(float Value)
 
 FHitResult ABattleCam::RayLine()
 {
-	//start and end locations
-	Start = GetActorLocation();
-	End = Start + (GetActorForwardVector() * 1500.f);
+	FVector WorldDir;
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	if (PC != nullptr)
+	{
+		PC->DeprojectMousePositionToWorld(Start, WorldDir);
+		UE_LOG(LogTemp, Warning, TEXT("%f: %f"), Start.X, Start.Y)
+	}
+	//set start location
+	End = Start + (WorldDir * 3000.f);
 
 	//create trace parameters for Line casting
 	FCollisionQueryParams TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
@@ -77,7 +97,7 @@ FHitResult ABattleCam::RayLine()
 	TraceParams.bReturnPhysicalMaterial = false;
 	FHitResult HitRes(ForceInit); //Re-initialize hit info
 
-								  //call GetWorld() from within an actor extending class
+	//call GetWorld() from within an actor extending class
 	GetWorld()->LineTraceSingleByChannel(HitRes, Start, End, ECC_Camera, TraceParams);
 
 	return FHitResult(HitRes);

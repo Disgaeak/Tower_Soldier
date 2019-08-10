@@ -29,6 +29,8 @@ protected:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Point();
+
 private:
 	void MoveForward(float Value);// Called for forwards/backward input
 	void MoveRight(float Value);// Called for side to side input
@@ -36,4 +38,8 @@ private:
 
 	FVector Start;
 	FVector End;
+	FVector LOC;
+
+	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))
+	TSubclassOf<AActor> TestSpawn;
 };

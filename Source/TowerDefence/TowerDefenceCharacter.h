@@ -36,6 +36,9 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UFUNCTION(BlueprintCallable)
+	void Battle();
+
 protected:
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
@@ -64,4 +67,7 @@ private:
 	void Interact();
 
 	APlayerController* PC;
+
+	UPROPERTY(EditAnywhere, Category = "BattleCam", Meta = (BlueprintProtected = true))
+	APawn* BatCam;
 };

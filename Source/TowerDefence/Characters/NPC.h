@@ -21,6 +21,10 @@ public:
 	//interface functions
 	virtual void dialogue();
 
+	//closes current widget
+	UFUNCTION(BlueprintCallable)
+	void closeWidget();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

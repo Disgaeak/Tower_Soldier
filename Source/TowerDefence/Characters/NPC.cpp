@@ -31,7 +31,12 @@ void ANPC::dialogue()
 {
 	if (widCon != nullptr)
 	{
-		widCon->Message = "Test";
+		widCon->Message = "Where do ya want to go?";
 		widCon->AddToViewport();
 	}
+}
+
+void ANPC::closeWidget()
+{
+	
 }

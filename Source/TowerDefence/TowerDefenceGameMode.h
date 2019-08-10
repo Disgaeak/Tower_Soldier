@@ -16,4 +16,6 @@ public:
 
 private:
 	virtual void BeginPlay() override;
+
+	int32 StageNum;
 };

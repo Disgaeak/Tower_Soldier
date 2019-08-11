@@ -43,9 +43,6 @@ void ABattleCam::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void ABattleCam::Point()
 {
-	FActorSpawnParameters SpawnInfo;
-	
-
 	if (TestSpawn != nullptr)
 	{
 		AActor* Spawnd = GetWorld()->SpawnActor<AActor>(TestSpawn);

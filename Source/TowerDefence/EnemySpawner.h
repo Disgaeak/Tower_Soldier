@@ -15,12 +15,19 @@ public:
 	// Sets default values for this actor's properties
 	AEnemySpawner();
 
+	void SpawnWave();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+	int32 waveCount;
+	int32 maxWaveCount;
+
+	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))
+	TSubclassOf<APawn> ToSpawn;
 };

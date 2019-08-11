@@ -2,6 +2,8 @@
 
 
 #include "EnemySpawner.h"
+#include "Engine/World.h"
+#include "Engine/Classes/GameFramework/Character.h"
 
 // Sets default values
 AEnemySpawner::AEnemySpawner()
@@ -16,6 +18,7 @@ void AEnemySpawner::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SpawnWave();
 }
 
 // Called every frame
@@ -25,3 +28,13 @@ void AEnemySpawner::Tick(float DeltaTime)
 
 }
 
+void AEnemySpawner::SpawnWave()
+{
+	if (ToSpawn != nullptr)
+	{
+		APawn* Spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
+		Spawnd->SetActorLocation(GetActorLocation());
+		Spawnd->SpawnDefaultController();
+		Spawnd->Tags.Add(FName("Enemy"));
+	}
+}

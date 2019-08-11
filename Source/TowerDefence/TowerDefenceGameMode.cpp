@@ -12,6 +12,12 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+}
+
+void ATowerDefenceGameMode::SetStage(int32 stageCode)
+{
+	StageNum = stageCode;
 }
 
 void ATowerDefenceGameMode::BeginPlay()

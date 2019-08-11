@@ -14,8 +14,12 @@ class ATowerDefenceGameMode : public AGameModeBase
 public:
 	ATowerDefenceGameMode();
 
-private:
+	UFUNCTION(BlueprintCallable)
+	void SetStage(int32 stageCode);
+
+protected:
 	virtual void BeginPlay() override;
 
+private:
 	int32 StageNum;
 };

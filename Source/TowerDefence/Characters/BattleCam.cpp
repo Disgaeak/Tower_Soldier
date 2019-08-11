@@ -6,6 +6,8 @@
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
+#include "../WidgetControl.h"
 
 // Sets default values
 ABattleCam::ABattleCam()
@@ -43,10 +45,14 @@ void ABattleCam::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void ABattleCam::Point()
 {
-	if (TestSpawn != nullptr)
+	//Spawns soldier to mouse location
+	if (SelSoldier != nullptr)
 	{
-		AActor* Spawnd = GetWorld()->SpawnActor<AActor>(TestSpawn);
-		Spawnd->SetActorLocation(RayLine().Location);
+		APawn* Spawnd = GetWorld()->SpawnActor<APawn>(SelSoldier);
+		FVector LOC = RayLine().Location;
+		LOC.Z = LOC.Z + 100.f;
+		Spawnd->SetActorLocation(LOC);
+		Spawnd->SpawnDefaultController();
 	}
 }
 
@@ -83,7 +89,6 @@ FHitResult ABattleCam::RayLine()
 	if (PC != nullptr)
 	{
 		PC->DeprojectMousePositionToWorld(Start, WorldDir);
-		UE_LOG(LogTemp, Warning, TEXT("%f: %f"), Start.X, Start.Y)
 	}
 	//set start location
 	End = Start + (WorldDir * 3000.f);
@@ -98,4 +103,17 @@ FHitResult ABattleCam::RayLine()
 	GetWorld()->LineTraceSingleByChannel(HitRes, Start, End, ECC_Camera, TraceParams);
 
 	return FHitResult(HitRes);
+}
+
+void ABattleCam::SelectedPawn(TSubclassOf<APawn> Soldier)
+{
+	SelSoldier = Soldier;
+}
+
+void ABattleCam::OpenMenu()
+{
+	if (widCon != nullptr)
+	{
+		widCon->AddToViewport();
+	}
 }

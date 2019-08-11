@@ -7,6 +7,7 @@
 #include "TowerDefenceCharacter.generated.h"
 
 class INPCInterface;
+class ABattleCam;
 
 UCLASS(config=Game)
 class ATowerDefenceCharacter : public ACharacter

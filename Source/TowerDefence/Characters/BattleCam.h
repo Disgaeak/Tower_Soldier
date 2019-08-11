@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "BattleCam.generated.h"
 
+class UWidgetControl;
+
 UCLASS()
 class TOWERDEFENCE_API ABattleCam : public APawn
 {
@@ -18,6 +20,11 @@ public:
 	//camera
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class UCameraComponent* Cam;
+
+	UFUNCTION(BlueprintCallable)
+	void SelectedPawn(TSubclassOf<APawn> Soldier);
+
+	void OpenMenu();
 
 protected:
 	// Called when the game starts or when spawned
@@ -40,6 +47,8 @@ private:
 	FVector End;
 	FVector LOC;
 
-	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))
-	TSubclassOf<AActor> TestSpawn;
+	TSubclassOf<APawn> SelSoldier;
+
+	UPROPERTY(EditAnywhere, Category = "UI", Meta = (BlueprintProtected = true))
+	UWidgetControl* widCon;
 };

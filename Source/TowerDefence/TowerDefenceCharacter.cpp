@@ -11,6 +11,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Engine/World.h"
 #include "Characters/NPCInterface.h"
+#include "Characters/BattleCam.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ATowerDefenceCharacter
@@ -124,6 +125,8 @@ void ATowerDefenceCharacter::Battle()
 	if (BatCam != nullptr)
 	{
 		GetWorld()->GetFirstPlayerController()->Possess(BatCam);
+		ABattleCam* BCam = Cast<ABattleCam>(BatCam);
+		BCam->OpenMenu();
 	}
 }
 

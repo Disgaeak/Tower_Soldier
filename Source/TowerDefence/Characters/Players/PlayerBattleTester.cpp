@@ -20,8 +20,10 @@ APlayerBattleTester::APlayerBattleTester()
 
 void APlayerBattleTester::BeginPlay()
 {
+	Super::BeginPlay();
 }
 
 void APlayerBattleTester::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 }

@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "TowerDefenceGameMode.generated.h"
 
+class AEnemySpawner;
+
 UCLASS(minimalapi)
 class ATowerDefenceGameMode : public AGameModeBase
 {

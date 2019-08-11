@@ -3,6 +3,9 @@
 #include "TowerDefenceGameMode.h"
 #include "TowerDefenceCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
+#include "EnemySpawner.h"
 
 ATowerDefenceGameMode::ATowerDefenceGameMode()
 {
@@ -12,14 +15,14 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+}
 
+void ATowerDefenceGameMode::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 void ATowerDefenceGameMode::SetStage(int32 stageCode)
 {
 	StageNum = stageCode;
-}
-
-void ATowerDefenceGameMode::BeginPlay()
-{
 }

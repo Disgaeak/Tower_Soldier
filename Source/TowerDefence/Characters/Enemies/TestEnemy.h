@@ -6,14 +6,16 @@
 #include "Characters/Enemies/EnemyBase.h"
 #include "TestEnemy.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class TOWERDEFENCE_API ATestEnemy : public AEnemyBase
 {
 	GENERATED_BODY()
 	
+	//creates an inherited Widget of HP bar
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* HealthBar;
+
 public:
 	// Sets default values for this character's properties
 	ATestEnemy();
@@ -27,4 +29,6 @@ protected:
 
 private:
 	TArray<AActor*> Targets;
+
+	FORCEINLINE class UWidgetComponent* GetHPBar() const { return HealthBar; }
 };

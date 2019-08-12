@@ -6,14 +6,15 @@
 #include "Characters/Players/PlayerBase.h"
 #include "PlayerBattleTester.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class TOWERDEFENCE_API APlayerBattleTester : public APlayerBase
 {
 	GENERATED_BODY()
-	
+
+	//creates an inherited Widget of HP bar
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* HealthBar;
+
 public: 
 	APlayerBattleTester();
 
@@ -21,4 +22,6 @@ private:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	FORCEINLINE class UWidgetComponent* GetHPBar() const { return HealthBar; }
 };

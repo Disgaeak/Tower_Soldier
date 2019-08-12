@@ -26,3 +26,8 @@ void ATowerDefenceGameMode::SetStage(int32 stageCode)
 {
 	StageNum = stageCode;
 }
+
+int32 ATowerDefenceGameMode::GetStage()
+{
+	return StageNum;
+}

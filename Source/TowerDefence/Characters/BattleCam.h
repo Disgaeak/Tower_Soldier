@@ -7,6 +7,7 @@
 #include "BattleCam.generated.h"
 
 class UWidgetControl;
+class ATowerDefenceGameMode;
 
 UCLASS()
 class TOWERDEFENCE_API ABattleCam : public APawn
@@ -38,6 +39,8 @@ protected:
 
 	void Point();
 
+	void Cancel();
+
 private:
 	void MoveForward(float Value);// Called for forwards/backward input
 	void MoveRight(float Value);// Called for side to side input
@@ -48,6 +51,7 @@ private:
 	FVector LOC;
 
 	TSubclassOf<APawn> SelSoldier;
+	ATowerDefenceGameMode* GM;
 
 	UPROPERTY(EditAnywhere, Category = "UI", Meta = (BlueprintProtected = true))
 	UWidgetControl* widCon;

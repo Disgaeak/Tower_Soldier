@@ -17,13 +17,21 @@ public:
 
 	//basic stats
 	UPROPERTY(BlueprintReadOnly, category = "Stats")
+	int32 Lv;
+	UPROPERTY(BlueprintReadOnly, category = "Stats")
 	int32 HP;
+	UPROPERTY(BlueprintReadOnly, category = "Stats")
+	int32 MaxHP;
 	UPROPERTY(BlueprintReadOnly, category = "Stats")
 	int32 Atk; 
 	UPROPERTY(BlueprintReadOnly, category = "Stats")
 	int32 Def;
 	UPROPERTY(BlueprintReadOnly, category = "Stats")
 	float AtkSpd;
+	UPROPERTY(BlueprintReadOnly, category = "Stats")
+	int32 XP;
+	UPROPERTY(BlueprintReadOnly, category = "Stats")
+	int32 GP;
 
 protected:
 	// Called when the game starts or when spawned

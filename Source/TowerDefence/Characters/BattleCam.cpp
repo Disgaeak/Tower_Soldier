@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
 #include "../WidgetControl.h"
+#include "../TowerDefenceGameMode.h"
 
 // Sets default values
 ABattleCam::ABattleCam()
@@ -24,6 +25,7 @@ void ABattleCam::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (GetWorld()->GetAuthGameMode()) { GM = Cast<ATowerDefenceGameMode>(GetWorld()->GetAuthGameMode()); }
 }
 
 // Called every frame
@@ -41,6 +43,7 @@ void ABattleCam::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAxis("MoveForward", this, &ABattleCam::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABattleCam::MoveRight);
 	PlayerInputComponent->BindAction("BattleAction", IE_Pressed, this, &ABattleCam::Point);
+	PlayerInputComponent->BindAction("BattleCancel", IE_Pressed, this, &ABattleCam::Cancel);
 }
 
 void ABattleCam::Point()
@@ -56,6 +59,13 @@ void ABattleCam::Point()
 	}
 }
 
+void ABattleCam::Cancel()
+{
+	//Resets selected soldier to nothing
+	if(SelSoldier != nullptr)
+		SelSoldier = NULL;
+}
+
 void ABattleCam::MoveForward(float Value)
 {
 	FVector NewLOC;
@@ -63,10 +73,19 @@ void ABattleCam::MoveForward(float Value)
 
 	//moves camera forward & backward
 	AsLOC = FVector(0.f, GetActorForwardVector().Z * (Value * 25.f), 0.f);
-	NewLOC = FVector(GetActorLocation().X + AsLOC.X, 
-	FMath::Clamp(GetActorLocation().Y, -9517.f, -4826.f) + AsLOC.Y, 
-	GetActorLocation().Z + AsLOC.Z);
 
+	switch (GM->GetStage())
+	{
+	case 0:
+		NewLOC = FVector(GetActorLocation().X + AsLOC.X, FMath::Clamp(GetActorLocation().Y, -9517.f, -4826.f) + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
+	case 1:
+		NewLOC = FVector(GetActorLocation().X + AsLOC.X, FMath::Clamp(GetActorLocation().Y, -10380.f, -5277.f) + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
+	default:
+		break;
+	}
+	
 	SetActorLocation(NewLOC);
 }
 
@@ -77,7 +96,18 @@ void ABattleCam::MoveRight(float Value)
 
 	//gets Right vector
 	AsLOC = GetActorRightVector() * (Value * 25.f);
-	NewLOC = FVector(FMath::Clamp(GetActorLocation().X, -1655.f, 1339.f) + AsLOC.X, GetActorLocation().Y + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+	switch (GM->GetStage())
+	{
+	case 0:
+		NewLOC = FVector(FMath::Clamp(GetActorLocation().X, -1655.f, 1339.f) + AsLOC.X, GetActorLocation().Y + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
+	case 1:
+		NewLOC = FVector(FMath::Clamp(GetActorLocation().X, -1928.f, 1871.f) + AsLOC.X, GetActorLocation().Y + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
+	default:
+		break;
+	}
+	
 
 	SetActorLocation(NewLOC);
 }

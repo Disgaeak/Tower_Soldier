@@ -19,9 +19,18 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetStage(int32 stageCode);
 
+	int32 GetStage();
+
+	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	int32 XP;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	int32 Money;
+
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	int32 StageNum;
+
 };

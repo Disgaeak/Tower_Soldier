@@ -18,6 +18,7 @@ public:
 
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
+	virtual void AtkDamage(int32 Damage);
 
 	//AtkRange Overlap function
 	UFUNCTION(BlueprintCallable)

@@ -50,7 +50,8 @@ void APlayerBase::AtkDamage(int32 Damage)
 			HP = 0;
 		}
 	}
-
-	float CurHP = HP / MaxHP;
+	float nHP = HP, nMHP = MaxHP;
+	float CurHP = nHP / nMHP;
+	
 	DamageHealth(CurHP);
 }

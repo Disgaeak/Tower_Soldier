@@ -7,6 +7,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/Public/Components/WidgetComponent.h"
 #include "BattleInterface.h"
+#include "Engine/World.h"
+#include "Engine/Public/TimerManager.h"
 
 APlayerBattleTester::APlayerBattleTester()
 {
@@ -25,6 +27,7 @@ APlayerBattleTester::APlayerBattleTester()
 	XP = 0;
 	maxXP = 15;
 	Tier = 1;
+	classNam = EClassName::Soldier;
 
 	//create HP widget
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("UI health"));
@@ -83,6 +86,7 @@ void APlayerBattleTester::LevelUp()
 		Def += 3;
 		AtkSpd = 2.3;
 		Tier = 2;
+		classNam = EClassName::Knight;
 	}
 	if (Lv == 60)
 	{
@@ -92,6 +96,7 @@ void APlayerBattleTester::LevelUp()
 		Def += 5;
 		AtkSpd = 2.7;
 		Tier = 3;
+		classNam = EClassName::General;
 	}
 }
 
@@ -116,10 +121,24 @@ void APlayerBattleTester::GainXP(int32 EXP)
 
 void APlayerBattleTester::RangeOverlap(AActor* Other)
 {
-	if (Other->ActorHasTag(FName("Enemy")))
+	if (Other != nullptr && Other->ActorHasTag(FName("Enemy")))
 	{
-		IBattleInterface* EnemyTarg = Cast<IBattleInterface>(Other);
-		int32 curDamage = (Atk + Lv) * 3;
-		EnemyTarg->AtkDamage(curDamage);
+		bCanAttack = true;
+		if(!GetWorld()->GetTimerManager().IsTimerActive(AtkHandle))
+			GetWorld()->GetTimerManager().SetTimer(AtkHandle, this, &APlayerBattleTester::StartAtkDmg, AtkSpd, true, 0.3);
+
+		EnemyTarg = Cast<IBattleInterface>(Other);
 	}
+}
+
+void APlayerBattleTester::StartAtkDmg()
+{
+	int32 curDamage = (Atk + Lv) * 2;
+	EnemyTarg->AtkDamage(curDamage);
+}
+
+void APlayerBattleTester::EndAtkTime()
+{
+	bCanAttack = false;
+	GetWorld()->GetTimerManager().ClearTimer(AtkHandle);
 }

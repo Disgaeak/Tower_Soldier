@@ -33,6 +33,10 @@ public:
 	int32 XP;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	int32 GP;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
+	EClassName classNam;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
+	int32 Tier;
 
 	//sets health(percent) in blueprint
 	UFUNCTION(BlueprintImplementableEvent)
@@ -40,7 +44,7 @@ public:
 
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
-	void AtkDamage(int32 Damage);
+	virtual void AtkDamage(int32 Damage);
 
 protected:
 	// Called when the game starts or when spawned

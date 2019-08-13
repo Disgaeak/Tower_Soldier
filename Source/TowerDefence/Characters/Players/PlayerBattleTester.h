@@ -23,9 +23,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RangeOverlap(AActor* Other);
 
+	UFUNCTION(BlueprintCallable)
+	void EndAtkTime();
+
 private:
+	IBattleInterface* EnemyTarg;
+
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
 	void LevelUp();
+	void StartAtkDmg();
 };

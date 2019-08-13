@@ -35,6 +35,14 @@ public:
 	int32 maxXP;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	int32 Tier;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
+	EClassName classNam;
+
+	FTimerHandle AtkHandle;
+
+	//set attack animation enemy is in range
+	UPROPERTY(BlueprintReadWrite, category = "Anim")
+	bool bCanAttack;
 
 	//sets health(percent) in blueprint
 	UFUNCTION(BlueprintImplementableEvent)

@@ -13,9 +13,33 @@ class UBattleInterface : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
+UENUM()
+enum class EClassName : uint8
+{
+	NONE,
+	Soldier,
+	Knight,
+	General,
+	Guard,
+	Sentinel,
+	Guardian,
+	Thief,
+	Rogue,
+	Assassin,
+	Archer,
+	Grand_Bowman,
+	Sagittarius,
+	Berserker,
+	Hellion,
+	Genocider,
+	Cleric,
+	Maiden,
+	Angel,
+	Enuclea,
+	Murum,
+	Dahakha
+};
+
 class TOWERDEFENCE_API IBattleInterface
 {
 	GENERATED_BODY()

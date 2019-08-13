@@ -18,10 +18,15 @@ class TOWERDEFENCE_API APlayerBattleTester : public APlayerBase
 public: 
 	APlayerBattleTester();
 
+	//Interface funtions
+	virtual void GainXP(int32 EXP);
+	virtual void AtkDamage(int32 Damage);
+
 private:
 	virtual void BeginPlay() override;
-
 	virtual void Tick(float DeltaTime) override;
+
+	void LevelUp();
 
 	FORCEINLINE class UWidgetComponent* GetHPBar() const { return HealthBar; }
 };

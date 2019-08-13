@@ -20,6 +20,10 @@ public:
 	// Sets default values for this character's properties
 	ATestEnemy();
 
+	//Interface funtions
+	virtual void GainXP(int32 EXP);
+	virtual void AtkDamage(int32 Damage);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

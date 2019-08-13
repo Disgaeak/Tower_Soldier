@@ -31,3 +31,11 @@ void APlayerBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+void APlayerBase::GainXP(int32 EXP)
+{
+}
+
+void APlayerBase::AtkDamage(int32 Damage)
+{
+}

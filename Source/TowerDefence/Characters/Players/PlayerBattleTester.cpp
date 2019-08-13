@@ -15,13 +15,14 @@ APlayerBattleTester::APlayerBattleTester()
 
 	//sets default Lv 1 stats
 	Lv = 1;
-	HP = 7;
-	MaxHP = 7;
-	Atk = 5;
-	Def = 1;
+	HP = 15;
+	MaxHP = 15;
+	Atk = 4;
+	Def = 3;
 	AtkSpd = 2.f;
 	XP = 0;
 	maxXP = 15;
+	Tier = 1;
 
 	//create HP widget
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("UI health"));
@@ -38,4 +39,78 @@ void APlayerBattleTester::BeginPlay()
 void APlayerBattleTester::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void APlayerBattleTester::LevelUp()
+{
+	Lv++;
+	switch (Tier)
+	{
+	case 1:
+		MaxHP += FMath::RandRange(3, 6);
+		Atk += FMath::RandRange(1, 3);
+		Def += FMath::RandRange(1, 2);
+		break;
+	case 2:
+		MaxHP += FMath::RandRange(10, 14);
+		Atk += FMath::RandRange(4, 6);
+		Def += FMath::RandRange(4, 6);
+		break;
+	case 3:
+		MaxHP += FMath::RandRange(16, 20);
+		Atk += FMath::RandRange(12, 15);
+		Def += FMath::RandRange(8, 11);
+		break;
+	default:
+		break;
+	}
+	
+	HP = MaxHP;
+	maxXP = Lv * Lv + 15;
+
+	if (Lv == 30)
+	{
+		MaxHP += 5;
+		HP = MaxHP;
+		Atk += 3;
+		Def += 3;
+		AtkSpd = 2.3;
+		Tier = 2;
+	}
+	if (Lv == 60)
+	{
+		MaxHP += 10;
+		HP = MaxHP;
+		Atk += 6;
+		Def += 5;
+		AtkSpd = 2.7;
+		Tier = 3;
+	}
+}
+
+void APlayerBattleTester::GainXP(int32 EXP)
+{
+	// gainXP to level up
+	do
+	{
+		if (EXP >= maxXP)
+		{
+			maxXP = EXP - maxXP;
+			LevelUp();
+		}
+		else
+		{
+			XP = EXP;
+			EXP = 0;
+		}
+
+	} while (EXP > 0);
+}
+
+void APlayerBattleTester::AtkDamage(int32 Damage)
+{
+	HP -= Damage;
+	float CurHP = HP / MaxHP;
+
+	DamageHealth(CurHP);
 }

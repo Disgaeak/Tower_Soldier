@@ -13,13 +13,13 @@ ATestEnemy::ATestEnemy()
 
 	//sets default stats
 	Lv = 1;
-	HP = 5;
-	MaxHP = 5;
+	HP = 12;
+	MaxHP = 12;
 	Atk = 3;
-	Def = 1;
+	Def = 2;
 	AtkSpd = 1.2;
-	XP = 2;
-	GP = 2;
+	XP = 4;
+	GP = 4;
 
 	//create HP widget
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("UI health"));
@@ -38,4 +38,16 @@ void ATestEnemy::BeginPlay()
 void ATestEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ATestEnemy::GainXP(int32 EXP)
+{
+}
+
+void ATestEnemy::AtkDamage(int32 Damage)
+{
+	HP -= Damage;
+	float CurHP = HP / MaxHP;
+
+	DamageHealth(CurHP);
 }

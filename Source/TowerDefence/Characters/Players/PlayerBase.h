@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "BattleInterface.h"
 #include "PlayerBase.generated.h"
 
 UCLASS()
-class TOWERDEFENCE_API APlayerBase : public ACharacter
+class TOWERDEFENCE_API APlayerBase : public ACharacter, public IBattleInterface
 {
 	GENERATED_BODY()
 
@@ -32,6 +33,16 @@ public:
 	int32 XP;
 	UPROPERTY(BlueprintReadOnly, category = "Stats")
 	int32 maxXP;
+	UPROPERTY(BlueprintReadOnly, category = "Stats")
+	int32 Tier;
+
+	//sets health(percent) in blueprint
+	UFUNCTION(BlueprintImplementableEvent)
+	void DamageHealth(const float &Dmg);
+
+	//Interface funtions
+	virtual void GainXP(int32 EXP);
+	virtual void AtkDamage(int32 Damage);
 
 protected:
 	// Called when the game starts or when spawned

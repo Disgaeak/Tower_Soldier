@@ -24,3 +24,11 @@ void AEnemyBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+void AEnemyBase::GainXP(int32 EXP)
+{
+}
+
+void AEnemyBase::AtkDamage(int32 Damage)
+{
+}

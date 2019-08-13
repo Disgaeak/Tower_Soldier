@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "UMG/Public/Components/WidgetComponent.h"
+#include "Components/BoxComponent.h"
 
 ATestEnemy::ATestEnemy()
 {
@@ -26,6 +27,11 @@ ATestEnemy::ATestEnemy()
 	HealthBar->SetupAttachment(RootComponent);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBar->SetDrawSize(FVector2D(200.f, 60.f));
+
+	//create box collider
+	Atkrange = CreateDefaultSubobject<UBoxComponent>(TEXT("Range"));
+	Atkrange->SetupAttachment(RootComponent);
+	Atkrange->SetBoxExtent(FVector(70.f, 32.f, 32.f));
 }
 
 void ATestEnemy::BeginPlay()
@@ -44,10 +50,12 @@ void ATestEnemy::GainXP(int32 EXP)
 {
 }
 
-void ATestEnemy::AtkDamage(int32 Damage)
+void ATestEnemy::RangeOverlap(AActor* Other)
 {
-	HP -= Damage;
-	float CurHP = HP / MaxHP;
-
-	DamageHealth(CurHP);
+	if (Other->ActorHasTag(FName("Ally")))
+	{
+		IBattleInterface* EnemyTarg = Cast<IBattleInterface>(Other);
+		int32 curDamage = (Atk + Lv) * 3;
+		EnemyTarg->AtkDamage(curDamage);
+	}
 }

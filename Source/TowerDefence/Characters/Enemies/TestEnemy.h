@@ -11,10 +11,6 @@ UCLASS()
 class TOWERDEFENCE_API ATestEnemy : public AEnemyBase
 {
 	GENERATED_BODY()
-	
-	//creates an inherited Widget of HP bar
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UWidgetComponent* HealthBar;
 
 public:
 	// Sets default values for this character's properties
@@ -22,7 +18,10 @@ public:
 
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
-	virtual void AtkDamage(int32 Damage);
+
+	//AtkRange Overlap function
+	UFUNCTION(BlueprintCallable)
+	void RangeOverlap(AActor* Other);
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,6 +32,4 @@ protected:
 
 private:
 	TArray<AActor*> Targets;
-
-	FORCEINLINE class UWidgetComponent* GetHPBar() const { return HealthBar; }
 };

@@ -38,4 +38,19 @@ void APlayerBase::GainXP(int32 EXP)
 
 void APlayerBase::AtkDamage(int32 Damage)
 {
+	int32 minDamage = Damage - (Def * 2);
+	if (minDamage > 0)
+	{
+		if (HP - minDamage > 0)
+		{
+			HP -= minDamage;
+		}
+		else
+		{
+			HP = 0;
+		}
+	}
+
+	float CurHP = HP / MaxHP;
+	DamageHealth(CurHP);
 }

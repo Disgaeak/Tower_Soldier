@@ -57,13 +57,11 @@ void AEnemySpawner::EnemyTime()
 			//checks how many have spawned
 			if (spawnCount < numOfEnemytoSpawn[stageNum] + waveCount && ToSpawn != nullptr)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Yay"))
 				APawn* spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
 				spawnd->SetActorLocation(GetActorLocation());
 				spawnd->SpawnDefaultController();
 				spawnd->Tags.Add(FName("Enemy"));
 
-				numofEnemies.Add(spawnd);
 				spawnCount++;
 			}
 			else
@@ -83,11 +81,10 @@ void AEnemySpawner::EnemyTime()
 
 void AEnemySpawner::CheckEArray()
 {
-	for(int i = 1; i <= numofEnemies.Num(); ++i)
-	{
-		if (numofEnemies[i] == nullptr)
-			numofEnemies.RemoveAt(i);
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Enemy"), numofEnemies);
 
-		i--;
+	if (waveCount == maxWaveCount[0] && numofEnemies.Num() == 0 && !GetWorld()->GetTimerManager().IsTimerActive(SpawnHandle))
+	{
+		BatCam->endBattleSwitch();
 	}
 }

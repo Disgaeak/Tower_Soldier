@@ -9,6 +9,7 @@
 #include "Blueprint/UserWidget.h"
 #include "../WidgetControl.h"
 #include "../TowerDefenceGameMode.h"
+#include "../TowerDefenceCharacter.h"
 
 // Sets default values
 ABattleCam::ABattleCam()
@@ -18,6 +19,7 @@ ABattleCam::ABattleCam()
 
 	// Create a camera
 	Cam = CreateDefaultSubobject<UCameraComponent>(TEXT("MainCamera"));
+	Cam->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -147,4 +149,21 @@ void ABattleCam::OpenMenu()
 	{
 		widCon->AddToViewport();
 	}
+}
+
+void ABattleCam::endBattleSwitch()
+{
+	widCon->RemoveFromParent();
+	GetWorld()->GetFirstPlayerController()->Possess(hubChara);
+
+	ATowerDefenceCharacter* playChara = Cast<ATowerDefenceCharacter>(hubChara);
+	playChara->enableCharaInput();
+
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Ally"), numofPlayers);
+	for (int i = 0; i < numofPlayers.Num(); i++)
+	{
+		numofPlayers[i]->Destroy();
+	}
+
+	numofPlayers.Empty();
 }

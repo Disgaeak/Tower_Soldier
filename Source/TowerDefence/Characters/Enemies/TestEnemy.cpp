@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "UMG/Public/Components/WidgetComponent.h"
 #include "Components/BoxComponent.h"
+#include "../../EnemySpawner.h"
 
 ATestEnemy::ATestEnemy()
 {
@@ -41,6 +42,9 @@ void ATestEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Target"), Targets);
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Spawner"), Spawner);
+	if (Spawner[0] != nullptr)
+		eSpawn = Cast<AEnemySpawner>(Spawner[0]);
 }
 
 void ATestEnemy::Tick(float DeltaTime)
@@ -112,6 +116,7 @@ void ATestEnemy::AtkDamage(int32 Damage)
 		{
 			HP = 0;
 			Destroy();
+			eSpawn->CheckEArray();
 		}
 	}
 	float nHP = HP, nMHP = MaxHP;

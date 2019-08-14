@@ -41,7 +41,7 @@ private:
 	int32 stageNum;
 	TArray<int32> maxWaveCount;
 	TArray<int32> numOfEnemytoSpawn; //number of enemies to spawn per wave
-	TArray<APawn*> numofEnemies;
+	TArray<AActor*> numofEnemies;
 	TArray<AActor*> Targets;
 
 	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))

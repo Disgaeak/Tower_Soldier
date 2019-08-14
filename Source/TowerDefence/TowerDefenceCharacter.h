@@ -35,6 +35,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Battle();
 
+	void enableCharaInput();
+
 protected:
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);

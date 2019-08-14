@@ -166,3 +166,9 @@ void ATowerDefenceCharacter::Interact()
 		}
 	}
 }
+
+void ATowerDefenceCharacter::enableCharaInput()
+{
+	EnableInput(PC);
+	PC->bShowMouseCursor = false;
+}

@@ -8,6 +8,7 @@
 
 class UWidgetControl;
 class ATowerDefenceGameMode;
+class ATowerDefenceCharacter;
 
 UCLASS()
 class TOWERDEFENCE_API ABattleCam : public APawn
@@ -26,6 +27,8 @@ public:
 	void SelectedPawn(TSubclassOf<APawn> Soldier);
 
 	void OpenMenu();
+
+	void endBattleSwitch();
 
 	UPROPERTY(BlueprintReadOnly, category = "Spawn")
 	bool bNextWave = true;
@@ -55,6 +58,10 @@ private:
 
 	TSubclassOf<APawn> SelSoldier;
 	ATowerDefenceGameMode* GM;
+	TArray<AActor*> numofPlayers;
+
+	UPROPERTY(EditAnywhere, Category = "BattleCam", Meta = (BlueprintProtected = true))
+	APawn* hubChara;
 
 	UPROPERTY(EditAnywhere, Category = "UI", Meta = (BlueprintProtected = true))
 	UWidgetControl* widCon;

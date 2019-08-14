@@ -6,6 +6,7 @@
 #include "Characters/Enemies/EnemyBase.h"
 #include "TestEnemy.generated.h"
 
+class AEnemySpawner;
 
 UCLASS()
 class TOWERDEFENCE_API ATestEnemy : public AEnemyBase
@@ -33,4 +34,6 @@ protected:
 
 private:
 	TArray<AActor*> Targets;
+	TArray<AActor*> Spawner;
+	AEnemySpawner* eSpawn;
 };

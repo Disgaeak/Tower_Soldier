@@ -48,6 +48,7 @@ void APlayerBase::AtkDamage(int32 Damage)
 		else
 		{
 			HP = 0;
+			Destroy();
 		}
 	}
 	float nHP = HP, nMHP = MaxHP;

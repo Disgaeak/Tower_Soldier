@@ -27,6 +27,9 @@ public:
 
 	void OpenMenu();
 
+	UPROPERTY(BlueprintReadOnly, category = "Spawn")
+	bool bNextWave = true;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

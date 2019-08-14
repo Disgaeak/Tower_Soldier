@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "EnemySpawner.generated.h"
 
+class ABattleCam;
+
 UCLASS()
 class TOWERDEFENCE_API AEnemySpawner : public AActor
 {
@@ -21,6 +23,9 @@ public:
 	UFUNCTION()
 	void EnemyTime();
 
+	UFUNCTION()
+	void CheckEArray();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -31,12 +36,17 @@ protected:
 private:
 	FTimerHandle SpawnHandle;
 
-	int32 waveCount;//current wave
+	int32 waveCount = 0;//current wave
 	int32 spawnCount = 0;
 	int32 stageNum;
 	TArray<int32> maxWaveCount;
 	TArray<int32> numOfEnemytoSpawn; //number of enemies to spawn per wave
+	TArray<APawn*> numofEnemies;
+	TArray<AActor*> Targets;
 
 	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))
 	TSubclassOf<APawn> ToSpawn;
+
+	UPROPERTY(VisibleAnywhere, Category = "BattleCam", Meta = (BlueprintProtected = true))
+	ABattleCam* BatCam;
 };

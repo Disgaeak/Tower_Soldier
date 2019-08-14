@@ -5,6 +5,8 @@
 #include "Engine/World.h"
 #include "Engine/Public/TimerManager.h"
 #include "Engine/Classes/GameFramework/Character.h"
+#include "Characters/BattleCam.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AEnemySpawner::AEnemySpawner()
@@ -20,19 +22,28 @@ AEnemySpawner::AEnemySpawner()
 void AEnemySpawner::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Tags.Add(FName("Spawner"));
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Camera"), Targets);
+	if (Targets[0] != nullptr)
+		BatCam = Cast<ABattleCam>(Targets[0]);
 }
 
 // Called every frame
 void AEnemySpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
 
 void AEnemySpawner::SpawnWave(int32 stageCode)
 {
 	stageNum = stageCode;
-	GetWorld()->GetTimerManager().SetTimer(SpawnHandle, this, &AEnemySpawner::EnemyTime, 5.f, true);
+	if (BatCam != nullptr)
+		BatCam->bNextWave = false;
+
+	waveCount++;
+	GetWorld()->GetTimerManager().SetTimer(SpawnHandle, this, &AEnemySpawner::EnemyTime, 3.f, true, 0.5f);
 }
 
 void AEnemySpawner::EnemyTime()
@@ -40,18 +51,43 @@ void AEnemySpawner::EnemyTime()
 	//spawn Enemies from this point
 	if (ToSpawn != nullptr)
 	{
-		if (spawnCount < numOfEnemytoSpawn[stageNum])
+		//checks which wave
+		if (waveCount <= maxWaveCount[0])
 		{
-			APawn* spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
-			spawnd->SetActorLocation(GetActorLocation());
-			spawnd->SpawnDefaultController();
-			spawnd->Tags.Add(FName("Enemy"));
+			//checks how many have spawned
+			if (spawnCount < numOfEnemytoSpawn[stageNum] + waveCount && ToSpawn != nullptr)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Yay"))
+				APawn* spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
+				spawnd->SetActorLocation(GetActorLocation());
+				spawnd->SpawnDefaultController();
+				spawnd->Tags.Add(FName("Enemy"));
 
-			spawnCount++;
+				numofEnemies.Add(spawnd);
+				spawnCount++;
+			}
+			else
+			{
+				GetWorld()->GetTimerManager().ClearTimer(SpawnHandle);
+				spawnCount = 0;
+				if (BatCam != nullptr && waveCount < maxWaveCount[0])
+					BatCam->bNextWave = true;
+			}
 		}
 		else
 		{
 			GetWorld()->GetTimerManager().ClearTimer(SpawnHandle);
 		}
+	}
+}
+
+void AEnemySpawner::CheckEArray()
+{
+	for(int i = 1; i <= numofEnemies.Num(); ++i)
+	{
+		if (numofEnemies[i] == nullptr)
+			numofEnemies.RemoveAt(i);
+
+		i--;
 	}
 }

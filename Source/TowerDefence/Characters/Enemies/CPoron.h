@@ -24,6 +24,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RangeOverlap(AActor* Other);
 
+	UFUNCTION(BlueprintCallable)
+	void endRangeOverlap();
+
+	UFUNCTION(BlueprintCallable, category = "Anim")
+	void StartAtkDmg();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,5 +42,5 @@ private:
 	TArray<AActor*> Spawner;
 
 	ATowerDefenceGameMode* GM;
-
+	IBattleInterface* EnemyTarg;
 };

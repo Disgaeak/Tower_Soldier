@@ -35,6 +35,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Battle();
 
+	UFUNCTION(BlueprintCallable)
 	void enableCharaInput();
 
 protected:

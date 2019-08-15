@@ -6,8 +6,6 @@
 #include "Characters/Players/PlayerBase.h"
 #include "PlayerBattleTester.generated.h"
 
-class IBattleInterface;
-
 UCLASS()
 class TOWERDEFENCE_API APlayerBattleTester : public APlayerBase
 {

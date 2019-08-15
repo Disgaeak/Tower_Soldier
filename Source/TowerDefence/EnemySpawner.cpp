@@ -52,10 +52,10 @@ void AEnemySpawner::EnemyTime()
 	if (ToSpawn != nullptr)
 	{
 		//checks which wave
-		if (waveCount <= maxWaveCount[0])
+		if (waveCount <= maxWaveCount[stageNum])
 		{
 			//checks how many have spawned
-			if (spawnCount < numOfEnemytoSpawn[stageNum] + waveCount && ToSpawn != nullptr)
+			if (spawnCount < numOfEnemytoSpawn[stageNum] + waveCount)
 			{
 				APawn* spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
 				spawnd->SetActorLocation(GetActorLocation());
@@ -67,9 +67,11 @@ void AEnemySpawner::EnemyTime()
 			else
 			{
 				GetWorld()->GetTimerManager().ClearTimer(SpawnHandle);
-				spawnCount = 0;
 				if (BatCam != nullptr && waveCount < maxWaveCount[stageNum])
+				{
 					BatCam->bNextWave = true;
+					spawnCount = 0;
+				}
 			}
 		}
 		else
@@ -83,8 +85,15 @@ void AEnemySpawner::CheckEArray()
 {
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Enemy"), numofEnemies);
 
-	if (waveCount == maxWaveCount[stageNum] && numofEnemies.Num() == 0 && !GetWorld()->GetTimerManager().IsTimerActive(SpawnHandle))
+	//check if the battle is finish to return to town
+	if (numofEnemies.Num() == 0)
 	{
-		BatCam->endBattleSwitch();
+		if (spawnCount == numOfEnemytoSpawn[stageNum] + waveCount)
+		{
+			if (waveCount == maxWaveCount[stageNum])
+			{
+				BatCam->endBattleSwitch();
+			}
+		}
 	}
 }

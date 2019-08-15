@@ -159,7 +159,17 @@ void ABattleCam::endBattleSwitch()
 	ATowerDefenceCharacter* playChara = Cast<ATowerDefenceCharacter>(hubChara);
 	playChara->enableCharaInput();
 
+	//get rid of any remaining Ally
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Ally"), numofPlayers);
+	for (int i = 0; i < numofPlayers.Num(); i++)
+	{
+		numofPlayers[i]->Destroy();
+	}
+
+	numofPlayers.Empty();
+
+	//get rid of previous stage 
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Land"), numofPlayers);
 	for (int i = 0; i < numofPlayers.Num(); i++)
 	{
 		numofPlayers[i]->Destroy();

@@ -8,6 +8,7 @@
 #include "Components/BoxComponent.h"
 #include "../../EnemySpawner.h"
 #include "../../TowerDefenceGameMode.h"
+#include "Engine/Public/TimerManager.h"
 
 ACPoron::ACPoron()
 {
@@ -18,7 +19,7 @@ ACPoron::ACPoron()
 	Lv = 1;
 	HP = 12;
 	MaxHP = 12;
-	Atk = 2;
+	Atk = 3;
 	Def = 1;
 	AtkSpd = 2.f;
 	XP = Lv * Lv + 1;
@@ -132,10 +133,22 @@ void ACPoron::AtkDamage(int32 Damage)
 
 void ACPoron::RangeOverlap(AActor* Other)
 {
-	if (Other->ActorHasTag(FName("Ally")))
+	if (Other != nullptr && Other->ActorHasTag(FName("Ally")))
 	{
-		IBattleInterface* EnemyTarg = Cast<IBattleInterface>(Other);
-		int32 curDamage = (Atk + Lv) * 3;
-		EnemyTarg->AtkDamage(curDamage);
+		bCanAttack = true;
+		EnemyTarg = Cast<IBattleInterface>(Other);
 	}
+}
+
+void ACPoron::endRangeOverlap()
+{
+	bCanAttack = false;
+}
+
+void ACPoron::StartAtkDmg()
+{
+	int32 curDamage = (Atk + Lv) * 2;
+
+	if(EnemyTarg != nullptr)
+		EnemyTarg->AtkDamage(curDamage);
 }

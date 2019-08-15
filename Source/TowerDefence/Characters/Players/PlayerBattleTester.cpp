@@ -6,7 +6,6 @@
 #include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/Public/Components/WidgetComponent.h"
-#include "BattleInterface.h"
 #include "Engine/World.h"
 #include "Engine/Public/TimerManager.h"
 

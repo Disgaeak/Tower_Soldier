@@ -25,7 +25,7 @@ APlayerBattleTester::APlayerBattleTester()
 	Def = 3;
 	AtkSpd = 2.f;
 	XP = 0;
-	maxXP = 15;
+	maxXP = Lv * Lv * Lv + 14;
 	Tier = 1;
 	classNam = EClassName::Soldier;
 
@@ -76,7 +76,7 @@ void APlayerBattleTester::LevelUp()
 	}
 	
 	HP = MaxHP;
-	maxXP = Lv * Lv + 15;
+	maxXP = Lv * Lv * Lv + 14;
 
 	if (Lv == 30)
 	{
@@ -102,21 +102,22 @@ void APlayerBattleTester::LevelUp()
 
 void APlayerBattleTester::GainXP(int32 EXP)
 {
+	int32 usedXp = EXP;
 	// gainXP to level up
 	do
 	{
-		if (EXP >= maxXP)
+		if (usedXp >= maxXP)
 		{
-			maxXP = EXP - maxXP;
+			maxXP -= usedXp;
 			LevelUp();
 		}
 		else
 		{
-			XP = EXP;
-			EXP = 0;
+			XP = usedXp;
+			usedXp = 0;
 		}
 
-	} while (EXP > 0);
+	} while (usedXp > 0);
 }
 
 void APlayerBattleTester::RangeOverlap(AActor* Other)

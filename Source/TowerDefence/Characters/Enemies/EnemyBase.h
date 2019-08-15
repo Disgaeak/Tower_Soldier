@@ -7,6 +7,8 @@
 #include "../Players/BattleInterface.h"
 #include "EnemyBase.generated.h"
 
+class AEnemySpawner;
+
 UCLASS()
 class TOWERDEFENCE_API AEnemyBase : public ACharacter, public IBattleInterface
 {
@@ -37,6 +39,8 @@ public:
 	EClassName classNam;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	int32 Tier;
+
+	AEnemySpawner* eSpawn;
 
 	//sets health(percent) in blueprint
 	UFUNCTION(BlueprintImplementableEvent)

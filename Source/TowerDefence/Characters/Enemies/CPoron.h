@@ -4,18 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Characters/Enemies/EnemyBase.h"
-#include "TestEnemy.generated.h"
+#include "CPoron.generated.h"
 
 class ATowerDefenceGameMode;
 
 UCLASS()
-class TOWERDEFENCE_API ATestEnemy : public AEnemyBase
+class TOWERDEFENCE_API ACPoron : public AEnemyBase
 {
 	GENERATED_BODY()
-
+	
 public:
-	// Sets default values for this character's properties
-	ATestEnemy();
+	ACPoron();
 
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
@@ -35,6 +34,7 @@ protected:
 private:
 	TArray<AActor*> Targets;
 	TArray<AActor*> Spawner;
-	
+
 	ATowerDefenceGameMode* GM;
+
 };

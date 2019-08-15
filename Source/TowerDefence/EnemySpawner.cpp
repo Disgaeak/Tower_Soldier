@@ -14,8 +14,8 @@ AEnemySpawner::AEnemySpawner()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	maxWaveCount.SetNum(1); maxWaveCount[0] = 2;
-	numOfEnemytoSpawn.SetNum(1); numOfEnemytoSpawn[0] = 2;
+	maxWaveCount.SetNum(2); maxWaveCount[0] = 2; maxWaveCount[1] = 3;
+	numOfEnemytoSpawn.SetNum(2); numOfEnemytoSpawn[0] = 1; numOfEnemytoSpawn[1] = 2;
 }
 
 // Called when the game starts or when spawned
@@ -68,7 +68,7 @@ void AEnemySpawner::EnemyTime()
 			{
 				GetWorld()->GetTimerManager().ClearTimer(SpawnHandle);
 				spawnCount = 0;
-				if (BatCam != nullptr && waveCount < maxWaveCount[0])
+				if (BatCam != nullptr && waveCount < maxWaveCount[stageNum])
 					BatCam->bNextWave = true;
 			}
 		}
@@ -83,7 +83,7 @@ void AEnemySpawner::CheckEArray()
 {
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Enemy"), numofEnemies);
 
-	if (waveCount == maxWaveCount[0] && numofEnemies.Num() == 0 && !GetWorld()->GetTimerManager().IsTimerActive(SpawnHandle))
+	if (waveCount == maxWaveCount[stageNum] && numofEnemies.Num() == 0 && !GetWorld()->GetTimerManager().IsTimerActive(SpawnHandle))
 	{
 		BatCam->endBattleSwitch();
 	}

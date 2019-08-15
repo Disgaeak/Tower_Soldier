@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TestEnemy.h"
+#include "CPoron.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "UMG/Public/Components/WidgetComponent.h"
@@ -9,7 +9,7 @@
 #include "../../EnemySpawner.h"
 #include "../../TowerDefenceGameMode.h"
 
-ATestEnemy::ATestEnemy()
+ACPoron::ACPoron()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -18,9 +18,9 @@ ATestEnemy::ATestEnemy()
 	Lv = 1;
 	HP = 12;
 	MaxHP = 12;
-	Atk = 3;
-	Def = 2;
-	AtkSpd = 1.2;
+	Atk = 2;
+	Def = 1;
+	AtkSpd = 2.f;
 	XP = Lv * Lv + 1;
 	GP = MaxHP / 2;
 	Tier = 1;
@@ -38,7 +38,7 @@ ATestEnemy::ATestEnemy()
 	Atkrange->SetBoxExtent(FVector(70.f, 32.f, 32.f));
 }
 
-void ATestEnemy::BeginPlay()
+void ACPoron::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -50,12 +50,12 @@ void ATestEnemy::BeginPlay()
 		eSpawn = Cast<AEnemySpawner>(Spawner[0]);
 }
 
-void ATestEnemy::Tick(float DeltaTime)
+void ACPoron::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void ATestEnemy::GainXP(int32 EXP)
+void ACPoron::GainXP(int32 EXP)
 {
 	Lv = EXP;
 	for (int32 i = 0; i <= Lv; i++)
@@ -106,7 +106,7 @@ void ATestEnemy::GainXP(int32 EXP)
 	}
 }
 
-void ATestEnemy::AtkDamage(int32 Damage)
+void ACPoron::AtkDamage(int32 Damage)
 {
 	int32 minDamage = Damage - (Def * 2);
 	if (minDamage > 0)
@@ -130,7 +130,7 @@ void ATestEnemy::AtkDamage(int32 Damage)
 	DamageHealth(CurHP);
 }
 
-void ATestEnemy::RangeOverlap(AActor* Other)
+void ACPoron::RangeOverlap(AActor* Other)
 {
 	if (Other->ActorHasTag(FName("Ally")))
 	{

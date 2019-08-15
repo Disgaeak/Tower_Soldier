@@ -2,6 +2,8 @@
 
 
 #include "EnemyBase.h"
+#include "../../EnemySpawner.h"
+
 
 // Sets default values
 AEnemyBase::AEnemyBase()

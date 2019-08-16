@@ -58,6 +58,7 @@ public:
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
 	virtual void AtkDamage(int32 Damage);
+	void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP);
 
 protected:
 	// Called when the game starts or when spawned

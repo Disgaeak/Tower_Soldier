@@ -32,7 +32,9 @@ protected:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
 	UPROPERTY(EditAnywhere, Category = "UI", Meta = (BlueprintProtected = true))
 	UWidgetControl* widCon;
+
+private:
+	
 };

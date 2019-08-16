@@ -67,4 +67,5 @@ public:
 	virtual void GainXP(int32 EXP) = 0;
 
 	virtual void AtkDamage(int32 Damage) = 0;
+	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP) = 0;
 };

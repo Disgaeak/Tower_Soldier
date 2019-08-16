@@ -9,6 +9,7 @@
 class UWidgetControl;
 class ATowerDefenceGameMode;
 class ATowerDefenceCharacter;
+class IBattleInterface;
 
 UCLASS()
 class TOWERDEFENCE_API ABattleCam : public APawn
@@ -24,7 +25,10 @@ public:
 	class UCameraComponent* Cam;
 
 	UFUNCTION(BlueprintCallable)
-	void SelectedPawn(TSubclassOf<APawn> Soldier);
+	void SelectedPawn(int32 charaNum);
+
+	UFUNCTION(BlueprintCallable)
+	void GetStats();
 
 	void OpenMenu();
 
@@ -59,6 +63,10 @@ private:
 	TSubclassOf<APawn> SelSoldier;
 	ATowerDefenceGameMode* GM;
 	TArray<AActor*> numofPlayers;
+	IBattleInterface* AllyRef;
+
+	UPROPERTY(EditAnywhere, Category = "Ally", Meta = (BlueprintProtected = true))
+	TSubclassOf<APawn> ToSpawn;
 
 	UPROPERTY(EditAnywhere, Category = "BattleCam", Meta = (BlueprintProtected = true))
 	APawn* hubChara;

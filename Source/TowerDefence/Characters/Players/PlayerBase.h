@@ -49,8 +49,11 @@ public:
 	void DamageHealth(const float &Dmg);
 
 	//Interface funtions
+	UFUNCTION(BlueprintCallable)
 	virtual void GainXP(int32 EXP);
+
 	void AtkDamage(int32 Damage);
+	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP);
 
 protected:
 	// Called when the game starts or when spawned

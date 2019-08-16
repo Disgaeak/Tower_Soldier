@@ -10,6 +10,7 @@
 #include "../WidgetControl.h"
 #include "../TowerDefenceGameMode.h"
 #include "../TowerDefenceCharacter.h"
+#include "Players/BattleInterface.h"
 
 // Sets default values
 ABattleCam::ABattleCam()
@@ -137,9 +138,14 @@ FHitResult ABattleCam::RayLine()
 	return FHitResult(HitRes);
 }
 
-void ABattleCam::SelectedPawn(TSubclassOf<APawn> Soldier)
+void ABattleCam::SelectedPawn(int32 charaNum)
 {
-	SelSoldier = Soldier;
+	SelSoldier = ToSpawn;
+}
+
+void ABattleCam::GetStats()
+{
+	AllyRef = Cast<IBattleInterface>(ToSpawn);
 }
 
 void ABattleCam::OpenMenu()

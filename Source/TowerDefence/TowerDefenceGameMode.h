@@ -21,10 +21,10 @@ public:
 
 	int32 GetStage();
 
-	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	int32 XP;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	int32 Money;
 
 protected:

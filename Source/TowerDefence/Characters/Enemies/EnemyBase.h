@@ -51,6 +51,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void DamageHealth(const float &Dmg);
 
+	//sets level and stats for UI widget
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetUILV();
+
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
 	virtual void AtkDamage(int32 Damage);

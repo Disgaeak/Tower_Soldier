@@ -7,6 +7,7 @@
 #include "EnemySpawner.generated.h"
 
 class ABattleCam;
+class IBattleInterface;
 
 UCLASS()
 class TOWERDEFENCE_API AEnemySpawner : public AActor
@@ -35,6 +36,7 @@ protected:
 
 private:
 	FTimerHandle SpawnHandle;
+	IBattleInterface* enemSpawn;
 
 	int32 waveCount = 0;//current wave
 	int32 spawnCount = 0;

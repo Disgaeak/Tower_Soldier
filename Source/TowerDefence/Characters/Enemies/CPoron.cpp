@@ -58,53 +58,60 @@ void ACPoron::Tick(float DeltaTime)
 
 void ACPoron::GainXP(int32 EXP)
 {
-	Lv = EXP;
-	for (int32 i = 0; i <= Lv; i++)
+	if (EXP > 1)
 	{
-		switch (Tier)
+		Lv = EXP;
+		for (int32 i = 1; i < Lv; i++)
 		{
-		case 1:
-			MaxHP += FMath::RandRange(3, 6);
-			Atk += FMath::RandRange(1, 3);
-			Def += FMath::RandRange(1, 2);
-			break;
-		case 2:
-			MaxHP += FMath::RandRange(10, 14);
-			Atk += FMath::RandRange(4, 6);
-			Def += FMath::RandRange(4, 6);
-			break;
-		case 3:
-			MaxHP += FMath::RandRange(16, 20);
-			Atk += FMath::RandRange(12, 15);
-			Def += FMath::RandRange(8, 11);
-			break;
-		default:
-			break;
-		}
+			switch (Tier)
+			{
+			case 1:
+				MaxHP += FMath::RandRange(3, 6);
+				Atk += FMath::RandRange(1, 3);
+				Def += FMath::RandRange(1, 2);
+				break;
+			case 2:
+				MaxHP += FMath::RandRange(10, 14);
+				Atk += FMath::RandRange(4, 6);
+				Def += FMath::RandRange(4, 6);
+				break;
+			case 3:
+				MaxHP += FMath::RandRange(16, 20);
+				Atk += FMath::RandRange(12, 15);
+				Def += FMath::RandRange(8, 11);
+				break;
+			default:
+				break;
+			}
 
-		if (i == 30)
-		{
-			MaxHP += 5;
-			HP = MaxHP;
-			Atk += 3;
-			Def += 3;
-			AtkSpd = 1.8;
-			Tier = 2;
-			classNam = EClassName::Knight;
-		}
-		if (i == 60)
-		{
-			MaxHP += 10;
-			HP = MaxHP;
-			Atk += 6;
-			Def += 5;
-			AtkSpd = 2.3;
-			Tier = 3;
-			classNam = EClassName::General;
-		}
+			if (i == 30)
+			{
+				MaxHP += 5;
+				HP = MaxHP;
+				Atk += 3;
+				Def += 3;
+				AtkSpd = 1.8;
+				Tier = 2;
+				classNam = EClassName::Knight;
+			}
+			if (i == 60)
+			{
+				MaxHP += 10;
+				HP = MaxHP;
+				Atk += 6;
+				Def += 5;
+				AtkSpd = 2.3;
+				Tier = 3;
+				classNam = EClassName::General;
+			}
 
-		HP = MaxHP;
+			HP = MaxHP;
+		}
 	}
+
+	XP = Lv * Lv + 1;
+	GP = MaxHP / 2;
+	SetUILV();
 }
 
 void ACPoron::AtkDamage(int32 Damage)

@@ -13,31 +13,48 @@ class UBattleInterface : public UInterface
 	GENERATED_BODY()
 };
 
+//determines the role in battle and stat growth
 UENUM()
 enum class EClassName : uint8
 {
 	NONE,
+	//Types that move during battle
 	Soldier,
 	Knight,
 	General,
+	//Types that do not move(Ally only) or Move & attack(Enemy only)
 	Guard,
 	Sentinel,
 	Guardian,
+	//Types that ignore and go for goal
 	Thief,
 	Rogue,
 	Assassin,
+	//Types that move but remain distant
 	Archer,
 	Grand_Bowman,
 	Sagittarius,
+	//Enemy only: ignores goal and go after Allies
 	Berserker,
 	Hellion,
 	Genocider,
+	//Ally only: cannot attack, only heals
 	Cleric,
 	Maiden,
 	Angel,
+	//Wyvern or dragon unit: only attacks in straight line and returns to spawned position as guard
 	Enuclea,
 	Murum,
 	Dahakha
+};
+
+//the type of enemy or player
+UENUM()
+enum class EJobName : uint8
+{
+	NONE,
+	leaflet, //Poron jobs
+	Hero
 };
 
 class TOWERDEFENCE_API IBattleInterface

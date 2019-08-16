@@ -38,6 +38,8 @@ APlayerBattleTester::APlayerBattleTester()
 	Atkrange = CreateDefaultSubobject<UBoxComponent>(TEXT("Range"));
 	Atkrange->SetupAttachment(RootComponent);
 	Atkrange->SetBoxExtent(FVector(70.f, 32.f, 32.f));
+
+	Tags.Add(FName("Ally"));
 }
 
 void APlayerBattleTester::BeginPlay()

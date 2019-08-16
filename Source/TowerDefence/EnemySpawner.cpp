@@ -7,6 +7,7 @@
 #include "Engine/Classes/GameFramework/Character.h"
 #include "Characters/BattleCam.h"
 #include "Kismet/GameplayStatics.h"
+#include "Characters/Players/BattleInterface.h"
 
 // Sets default values
 AEnemySpawner::AEnemySpawner()
@@ -62,6 +63,10 @@ void AEnemySpawner::EnemyTime()
 				spawnd->SpawnDefaultController();
 				spawnd->Tags.Add(FName("Enemy"));
 
+				//levels up if needed
+				enemSpawn = Cast<IBattleInterface>(spawnd);
+				enemSpawn->GainXP(waveCount);
+
 				spawnCount++;
 			}
 			else
@@ -92,6 +97,9 @@ void AEnemySpawner::CheckEArray()
 		{
 			if (waveCount == maxWaveCount[stageNum])
 			{
+				waveCount = 0;
+				spawnCount = 0;
+				BatCam->bNextWave = true;
 				BatCam->endBattleSwitch();
 			}
 		}

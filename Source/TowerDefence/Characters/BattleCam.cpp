@@ -58,7 +58,6 @@ void ABattleCam::Point()
 		LOC.Z = LOC.Z + 100.f;
 		Spawnd->SetActorLocation(LOC);
 		Spawnd->SpawnDefaultController();
-		Spawnd->Tags.Add(FName("Ally"));
 	}
 }
 

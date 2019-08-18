@@ -143,11 +143,6 @@ void ABattleCam::SelectedPawn(int32 charaNum)
 	SelSoldier = ToSpawn;
 }
 
-void ABattleCam::GetStats()
-{
-	AllyRef = Cast<IBattleInterface>(ToSpawn);
-}
-
 void ABattleCam::OpenMenu()
 {
 	if (widCon != nullptr)

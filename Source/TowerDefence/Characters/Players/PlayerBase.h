@@ -7,6 +7,8 @@
 #include "BattleInterface.h"
 #include "PlayerBase.generated.h"
 
+class ATowerDefenceGameMode;
+
 UCLASS()
 class TOWERDEFENCE_API APlayerBase : public ACharacter, public IBattleInterface
 {
@@ -39,6 +41,7 @@ public:
 	EClassName classNam;
 
 	FTimerHandle AtkHandle;
+	ATowerDefenceGameMode* GM;
 
 	//set attack animation enemy is in range
 	UPROPERTY(BlueprintReadWrite, category = "Anim")
@@ -47,6 +50,10 @@ public:
 	//sets health(percent) in blueprint
 	UFUNCTION(BlueprintImplementableEvent)
 	void DamageHealth(const float &Dmg);
+
+	//updates UI
+	UFUNCTION(BlueprintImplementableEvent)
+	void UIChange();
 
 	//Interface funtions
 	UFUNCTION(BlueprintCallable)

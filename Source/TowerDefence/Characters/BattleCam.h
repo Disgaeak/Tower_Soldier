@@ -27,9 +27,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SelectedPawn(int32 charaNum);
 
-	UFUNCTION(BlueprintCallable)
-	void GetStats();
-
 	void OpenMenu();
 
 	void endBattleSwitch();

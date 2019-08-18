@@ -15,6 +15,8 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	PlayerStats.SetNum(2);
 }
 
 void ATowerDefenceGameMode::BeginPlay()

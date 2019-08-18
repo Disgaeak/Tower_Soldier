@@ -8,6 +8,7 @@
 #include "UMG/Public/Components/WidgetComponent.h"
 #include "Engine/World.h"
 #include "Engine/Public/TimerManager.h"
+#include "../../TowerDefenceGameMode.h"
 
 APlayerBattleTester::APlayerBattleTester()
 {
@@ -45,6 +46,34 @@ APlayerBattleTester::APlayerBattleTester()
 void APlayerBattleTester::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (GetWorld()->GetAuthGameMode()) { GM = Cast<ATowerDefenceGameMode>(GetWorld()->GetAuthGameMode()); }
+	if (GM->PlayerStats[0].Lv > 1)
+	{
+		Lv = GM->PlayerStats[0].Lv;
+		HP = GM->PlayerStats[0].HP;
+		MaxHP = GM->PlayerStats[0].MaxHP;
+		Atk = GM->PlayerStats[0].Atk;
+		Def = GM->PlayerStats[0].Def;
+		AtkSpd = GM->PlayerStats[0].AtkSpd;
+		XP = GM->PlayerStats[0].XP;
+		maxXP = GM->PlayerStats[0].maxXP;
+		Tier = GM->PlayerStats[0].Tier;
+	}
+	else
+	{
+		GM->PlayerStats[0].Lv = Lv;
+		GM->PlayerStats[0].HP = HP;
+		GM->PlayerStats[0].MaxHP = MaxHP;
+		GM->PlayerStats[0].Atk = Atk;
+		GM->PlayerStats[0].Def = Def;
+		GM->PlayerStats[0].AtkSpd = AtkSpd;
+		GM->PlayerStats[0].XP = XP;
+		GM->PlayerStats[0].maxXP = maxXP;
+		GM->PlayerStats[0].Tier = Tier;
+	}
+
+	UIChange();
 }
 
 void APlayerBattleTester::Tick(float DeltaTime)
@@ -99,6 +128,18 @@ void APlayerBattleTester::LevelUp()
 		Tier = 3;
 		classNam = EClassName::General;
 	}
+
+	GM->PlayerStats[0].Lv = Lv;
+	GM->PlayerStats[0].HP = HP;
+	GM->PlayerStats[0].MaxHP = MaxHP;
+	GM->PlayerStats[0].Atk = Atk;
+	GM->PlayerStats[0].Def = Def;
+	GM->PlayerStats[0].AtkSpd = AtkSpd;
+	GM->PlayerStats[0].XP = XP;
+	GM->PlayerStats[0].maxXP = maxXP;
+	GM->PlayerStats[0].Tier = Tier;
+
+	UIChange();
 }
 
 void APlayerBattleTester::GainXP(int32 EXP)
@@ -111,6 +152,7 @@ void APlayerBattleTester::GainXP(int32 EXP)
 		{
 			usedXp -= maxXP;
 			LevelUp();
+			
 		}
 		else
 		{

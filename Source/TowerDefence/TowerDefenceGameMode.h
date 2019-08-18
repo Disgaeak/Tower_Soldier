@@ -33,6 +33,24 @@ struct FGMStats
 	int32 Tier = 0;
 };
 
+USTRUCT(BlueprintType)
+struct FEnemyinfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, Category = "stats")
+	int32 Lv = 0;
+
+	UPROPERTY(BlueprintReadWrite, Category = "stats")
+	uint8 job = 0;
+
+	UPROPERTY(BlueprintReadWrite, Category = "stats")
+	int32 numOfEnemy = 0;
+
+	UPROPERTY(BlueprintReadWrite, Category = "stats")
+	int32 stageOrigin = 0;
+};
+
 UCLASS(minimalapi)
 class ATowerDefenceGameMode : public AGameModeBase
 {
@@ -47,11 +65,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetStage();
 
+	//when enemy reaches goal
+	UFUNCTION(BlueprintCallable)
+	void AttackTown(int32 damage, uint8 job);
+
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	int32 XP;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	int32 Money;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	int32 townMaxHP;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Stats")
+	int32 TownHP;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	TArray<FGMStats> PlayerStats;

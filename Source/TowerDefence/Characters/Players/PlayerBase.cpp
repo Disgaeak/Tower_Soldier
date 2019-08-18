@@ -57,6 +57,6 @@ void APlayerBase::AtkDamage(int32 Damage)
 	DamageHealth(CurHP);
 }
 
-void APlayerBase::GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP)
+void APlayerBase::GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum)
 {
 }

@@ -39,6 +39,8 @@ public:
 	int32 Tier;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	EClassName classNam;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
+	EJobName jobNam;
 
 	FTimerHandle AtkHandle;
 	ATowerDefenceGameMode* GM;
@@ -60,7 +62,9 @@ public:
 	virtual void GainXP(int32 EXP);
 
 	void AtkDamage(int32 Damage);
-	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum);
 
 protected:
 	// Called when the game starts or when spawned

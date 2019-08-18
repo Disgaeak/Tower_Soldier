@@ -26,6 +26,7 @@ ACPoron::ACPoron()
 	GP = MaxHP / 2;
 	Tier = 1;
 	classNam = EClassName::Soldier;
+	jobNam = EJobName::leaflet;
 
 	//create HP widget
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("UI health"));

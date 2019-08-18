@@ -28,6 +28,7 @@ APlayerBattleTester::APlayerBattleTester()
 	maxXP = Lv * Lv * Lv + 14;
 	Tier = 1;
 	classNam = EClassName::Soldier;
+	jobNam = EJobName::Hero;
 
 	//create HP widget
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("UI health"));
@@ -163,9 +164,9 @@ void APlayerBattleTester::GainXP(int32 EXP)
 	} while (usedXp > 0);
 }
 
-void APlayerBattleTester::GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP)
+void APlayerBattleTester::GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum)
 {
-	Lvl = Lv; AHp = HP; AmaxHP = MaxHP; AAtk = Atk; ADef = Def; AXP = XP; AmaxXP = maxXP;
+	Lvl = Lv; AHp = HP; AmaxHP = MaxHP; AAtk = Atk; ADef = Def; AXP = XP; AmaxXP = maxXP; jobnum = 2;
 }
 
 void APlayerBattleTester::RangeOverlap(AActor* Other)

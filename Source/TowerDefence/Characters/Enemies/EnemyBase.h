@@ -39,6 +39,8 @@ public:
 	EClassName classNam;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	int32 Tier;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
+	EJobName jobNam;
 
 	AEnemySpawner* eSpawn;
 	FTimerHandle EAtkHandle;
@@ -58,7 +60,9 @@ public:
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
 	virtual void AtkDamage(int32 Damage);
-	void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP);
+
+	UFUNCTION(BlueprintCallable)
+	void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum);
 
 protected:
 	// Called when the game starts or when spawned

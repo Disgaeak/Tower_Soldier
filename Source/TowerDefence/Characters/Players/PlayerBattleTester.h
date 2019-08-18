@@ -16,7 +16,7 @@ public:
 
 	//Interface funtions
 	virtual void GainXP(int32 EXP);
-	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP);
+	virtual void GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum);
 
 	//AtkRange Overlap function
 	UFUNCTION(BlueprintCallable)

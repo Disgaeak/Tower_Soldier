@@ -36,6 +36,7 @@ void AEnemyBase::AtkDamage(int32 Damage)
 	
 }
 
-void AEnemyBase::GetAllStats(int32 & Lvl, int32 & AHp, int32 & AmaxHP, int32 & AAtk, int32 & ADef, int32 & AXP, int32 & AmaxXP)
+void AEnemyBase::GetAllStats(int32 & Lvl, int32 & AHp, int32 & AmaxHP, int32 & AAtk, int32 & ADef, int32 & AXP, int32 & AmaxXP, uint8 &jobnum)
 {
+	Lvl = Lv; AHp = HP; AmaxHP = MaxHP; AAtk = Atk; ADef = Def; AXP = XP; jobnum = (uint8)jobNam;
 }

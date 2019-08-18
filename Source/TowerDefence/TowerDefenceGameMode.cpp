@@ -17,6 +17,8 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	}
 
 	PlayerStats.SetNum(2);
+	townMaxHP = 10;
+	TownHP = 10;
 }
 
 void ATowerDefenceGameMode::BeginPlay()
@@ -32,4 +34,12 @@ void ATowerDefenceGameMode::SetStage(int32 stageCode)
 int32 ATowerDefenceGameMode::GetStage()
 {
 	return StageNum;
+}
+
+void ATowerDefenceGameMode::AttackTown(int32 damage, uint8 job)
+{
+	if (StageNum == 0)
+	{
+		TownHP -= damage;
+	}
 }

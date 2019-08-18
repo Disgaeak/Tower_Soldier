@@ -24,7 +24,7 @@ public:
 	UFUNCTION()
 	void EnemyTime();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void CheckEArray();
 
 protected:

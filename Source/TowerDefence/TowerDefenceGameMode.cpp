@@ -42,4 +42,13 @@ void ATowerDefenceGameMode::AttackTown(int32 damage, uint8 job)
 	{
 		TownHP -= damage;
 	}
+	else
+	{
+		FEnemyinfo holder;
+		holder.curstage = StageNum;
+		holder.Lv = damage;
+		holder.job = job;
+
+		EscapeEnemy.Add(holder);
+	}
 }

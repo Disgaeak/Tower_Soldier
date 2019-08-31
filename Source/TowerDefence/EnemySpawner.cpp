@@ -8,6 +8,7 @@
 #include "Characters/BattleCam.h"
 #include "Kismet/GameplayStatics.h"
 #include "Characters/Players/BattleInterface.h"
+#include "TowerDefenceGameMode.h"
 
 // Sets default values
 AEnemySpawner::AEnemySpawner()
@@ -28,6 +29,8 @@ void AEnemySpawner::BeginPlay()
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Camera"), Targets);
 	if (Targets[0] != nullptr)
 		BatCam = Cast<ABattleCam>(Targets[0]);
+
+	if (GetWorld()->GetAuthGameMode()) { GM = Cast<ATowerDefenceGameMode>(GetWorld()->GetAuthGameMode()); }
 }
 
 // Called every frame
@@ -43,8 +46,15 @@ void AEnemySpawner::SpawnWave(int32 stageCode)
 	if (BatCam != nullptr)
 		BatCam->bNextWave = false;
 
-	waveCount++;
-	GetWorld()->GetTimerManager().SetTimer(SpawnHandle, this, &AEnemySpawner::EnemyTime, 3.f, true, 0.5f);
+	if (bCanSPawnExtra)
+	{
+		GetWorld()->GetTimerManager().SetTimer(XtraSpawn, this, &AEnemySpawner::NowSpawnXtra, 2.f, true, 0.5f);
+	}
+	else
+	{
+		waveCount++;
+		GetWorld()->GetTimerManager().SetTimer(SpawnHandle, this, &AEnemySpawner::EnemyTime, 3.f, true, 0.5f);
+	}
 }
 
 void AEnemySpawner::EnemyTime()
@@ -79,10 +89,6 @@ void AEnemySpawner::EnemyTime()
 				}
 			}
 		}
-		else
-		{
-			GetWorld()->GetTimerManager().ClearTimer(SpawnHandle);
-		}
 	}
 }
 
@@ -97,10 +103,68 @@ void AEnemySpawner::CheckEArray()
 		{
 			if (waveCount == maxWaveCount[stageNum])
 			{
-				waveCount = 0;
-				spawnCount = 0;
-				BatCam->bNextWave = true;
-				BatCam->endBattleSwitch();
+				SpawnExtra();
+				if (bHasExtraEnemy == false)
+				{
+					waveCount = 0;
+					spawnCount = 0;
+					BatCam->bNextWave = true;
+					BatCam->endBattleSwitch();
+				}
+				else
+				{
+					bCanSPawnExtra = true;
+					BatCam->bNextWave = true;
+				}
+			}
+		}
+	}
+}
+
+void AEnemySpawner::SpawnExtra()
+{
+	//checks if there is any enemy from the previous stage
+	if (GM->EscapeEnemy.Num() > 0)
+	{
+		for (int i = 0; i < GM->EscapeEnemy.Num(); i++)
+		{
+			if (GM->EscapeEnemy[i].curstage > GM->GetStage())
+			{
+				bHasExtraEnemy = true;
+				break;
+			}
+			else
+			{
+				bHasExtraEnemy = false;
+				GetWorld()->GetTimerManager().ClearTimer(XtraSpawn);
+			}
+		}
+	}
+	else
+	{
+		bHasExtraEnemy = false;
+	}
+}
+
+void AEnemySpawner::NowSpawnXtra()
+{
+	//spawn Enemies from this point
+	if (ToSpawn != nullptr)
+	{
+		for (int i = 0; i < GM->EscapeEnemy.Num(); i++)
+		{
+			if (GM->EscapeEnemy[i].curstage > GM->GetStage())
+			{
+				APawn* spawnd = GetWorld()->SpawnActor<APawn>(ToSpawn);
+				spawnd->SetActorLocation(GetActorLocation());
+				spawnd->SpawnDefaultController();
+				spawnd->Tags.Add(FName("Enemy"));
+
+				//levels up if needed
+				enemSpawn = Cast<IBattleInterface>(spawnd);
+				enemSpawn->GainXP(GM->EscapeEnemy[i].Lv);
+				GM->EscapeEnemy.RemoveAt(i);
+				break;
 			}
 		}
 	}

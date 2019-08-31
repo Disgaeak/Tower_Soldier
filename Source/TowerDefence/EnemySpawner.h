@@ -8,6 +8,7 @@
 
 class ABattleCam;
 class IBattleInterface;
+class ATowerDefenceGameMode;
 
 UCLASS()
 class TOWERDEFENCE_API AEnemySpawner : public AActor
@@ -36,15 +37,22 @@ protected:
 
 private:
 	FTimerHandle SpawnHandle;
+	FTimerHandle XtraSpawn;
 	IBattleInterface* enemSpawn;
+	ATowerDefenceGameMode* GM;
 
 	int32 waveCount = 0;//current wave
 	int32 spawnCount = 0;
 	int32 stageNum;
+	bool bHasExtraEnemy = false;
+	bool bCanSPawnExtra = false;
 	TArray<int32> maxWaveCount;
 	TArray<int32> numOfEnemytoSpawn; //number of enemies to spawn per wave
 	TArray<AActor*> numofEnemies;
 	TArray<AActor*> Targets;
+
+	void SpawnExtra();
+	void NowSpawnXtra();
 
 	UPROPERTY(EditAnywhere, Category = "Spawn", Meta = (BlueprintProtected = true))
 	TSubclassOf<APawn> ToSpawn;

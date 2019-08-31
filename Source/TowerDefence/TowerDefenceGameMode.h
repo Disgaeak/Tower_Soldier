@@ -45,10 +45,7 @@ struct FEnemyinfo
 	uint8 job = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "stats")
-	int32 numOfEnemy = 0;
-
-	UPROPERTY(BlueprintReadWrite, Category = "stats")
-	int32 stageOrigin = 0;
+	int32 curstage = 0;
 };
 
 UCLASS(minimalapi)
@@ -83,6 +80,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	TArray<FGMStats> PlayerStats;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Enemy")
+	TArray<FEnemyinfo> EscapeEnemy;
 
 protected:
 	virtual void BeginPlay() override;

@@ -78,10 +78,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Stats")
 	int32 TownHP;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Deploy")
+	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
 	int32 MiaNum;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Deploy")
+	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
 	int32 TownGuardNum;
 
 	//keeps track of all units stats to save game

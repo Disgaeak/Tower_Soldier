@@ -21,7 +21,7 @@ ACPoron::ACPoron()
 	MaxHP = 12;
 	Atk = 3;
 	Def = 1;
-	AtkSpd = 2.f;
+	AtkSpd = 2.5f;
 	XP = Lv * Lv + 1;
 	GP = MaxHP / 2;
 	Tier = 1;
@@ -67,19 +67,19 @@ void ACPoron::GainXP(int32 EXP)
 			switch (Tier)
 			{
 			case 1:
-				MaxHP += FMath::RandRange(3, 6);
-				Atk += FMath::RandRange(1, 3);
+				MaxHP += FMath::RandRange(2, 4);
+				Atk += FMath::RandRange(1, 2);
 				Def += FMath::RandRange(1, 2);
 				break;
 			case 2:
-				MaxHP += FMath::RandRange(10, 14);
-				Atk += FMath::RandRange(4, 6);
-				Def += FMath::RandRange(4, 6);
+				MaxHP += FMath::RandRange(8, 12);
+				Atk += FMath::RandRange(3, 5);
+				Def += FMath::RandRange(3, 5);
 				break;
 			case 3:
-				MaxHP += FMath::RandRange(16, 20);
-				Atk += FMath::RandRange(12, 15);
-				Def += FMath::RandRange(8, 11);
+				MaxHP += FMath::RandRange(14, 18);
+				Atk += FMath::RandRange(11, 14);
+				Def += FMath::RandRange(7, 10);
 				break;
 			default:
 				break;

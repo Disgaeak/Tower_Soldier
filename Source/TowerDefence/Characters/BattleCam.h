@@ -51,11 +51,13 @@ protected:
 private:
 	void MoveForward(float Value);// Called for forwards/backward input
 	void MoveRight(float Value);// Called for side to side input
+	void PointSpawn();
 	FHitResult RayLine();
 
 	FVector Start;
 	FVector End;
 	FVector LOC;
+	int32 SpawnNum;
 
 	TSubclassOf<APawn> SelSoldier;
 	ATowerDefenceGameMode* GM;
@@ -63,7 +65,7 @@ private:
 	IBattleInterface* AllyRef;
 
 	UPROPERTY(EditAnywhere, Category = "Ally", Meta = (BlueprintProtected = true))
-	TSubclassOf<APawn> ToSpawn;
+	TArray<TSubclassOf<APawn>> ToSpawn;
 
 	UPROPERTY(EditAnywhere, Category = "BattleCam", Meta = (BlueprintProtected = true))
 	APawn* hubChara;

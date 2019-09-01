@@ -21,6 +21,8 @@ ABattleCam::ABattleCam()
 	// Create a camera
 	Cam = CreateDefaultSubobject<UCameraComponent>(TEXT("MainCamera"));
 	Cam->SetupAttachment(RootComponent);
+
+	ToSpawn.SetNum(2);
 }
 
 // Called when the game starts or when spawned
@@ -54,11 +56,25 @@ void ABattleCam::Point()
 	//Spawns soldier to mouse location
 	if (SelSoldier != nullptr)
 	{
-		APawn* Spawnd = GetWorld()->SpawnActor<APawn>(SelSoldier);
-		FVector LOC = RayLine().Location;
-		LOC.Z = LOC.Z + 100.f;
-		Spawnd->SetActorLocation(LOC);
-		Spawnd->SpawnDefaultController();
+		switch (SpawnNum)
+		{
+		case 0:
+			if (GM->MiaNum > 0)
+			{
+				GM->MiaNum--;
+				PointSpawn();
+			}
+			break;
+		case 1:
+			if (GM->TownGuardNum > 0)
+			{
+				GM->TownGuardNum--;
+				PointSpawn();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -115,6 +131,15 @@ void ABattleCam::MoveRight(float Value)
 	SetActorLocation(NewLOC);
 }
 
+void ABattleCam::PointSpawn()
+{
+	APawn* Spawnd = GetWorld()->SpawnActor<APawn>(SelSoldier);
+	FVector LOC = RayLine().Location;
+	LOC.Z = LOC.Z + 100.f;
+	Spawnd->SetActorLocation(LOC);
+	Spawnd->SpawnDefaultController();
+}
+
 FHitResult ABattleCam::RayLine()
 {
 	FVector WorldDir;
@@ -140,7 +165,8 @@ FHitResult ABattleCam::RayLine()
 
 void ABattleCam::SelectedPawn(int32 charaNum)
 {
-	SelSoldier = ToSpawn;
+	SelSoldier = ToSpawn[charaNum];
+	SpawnNum = charaNum;
 }
 
 void ABattleCam::OpenMenu()
@@ -158,6 +184,8 @@ void ABattleCam::endBattleSwitch()
 
 	ATowerDefenceCharacter* playChara = Cast<ATowerDefenceCharacter>(hubChara);
 	playChara->enableCharaInput();
+
+	GM->MiaNum = 1;
 
 	//get rid of any remaining Ally
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Ally"), numofPlayers);

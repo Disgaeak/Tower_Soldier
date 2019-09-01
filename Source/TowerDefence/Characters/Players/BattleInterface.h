@@ -54,7 +54,8 @@ enum class EJobName : uint8
 {
 	NONE,
 	leaflet, //Poron jobs
-	Hero
+	Hero,
+	TownGuard
 };
 
 class TOWERDEFENCE_API IBattleInterface

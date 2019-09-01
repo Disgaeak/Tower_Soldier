@@ -19,6 +19,8 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	PlayerStats.SetNum(2);
 	townMaxHP = 10;
 	TownHP = 10;
+	MiaNum = 1;
+	TownGuardNum = 3;
 }
 
 void ATowerDefenceGameMode::BeginPlay()

@@ -15,12 +15,15 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
-
-	PlayerStats.SetNum(2);
+	// 0 = Mia, 1 = Soldier Unit, 2 = Klaine
+	PlayerStats.SetNum(3);
 	townMaxHP = 10;
 	TownHP = 10;
 	MiaNum = 1;
+	KlaineNum = 1;
 	TownGuardNum = 3;
+
+	Events.SetNum(5);
 }
 
 void ATowerDefenceGameMode::BeginPlay()

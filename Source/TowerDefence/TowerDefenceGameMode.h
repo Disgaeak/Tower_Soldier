@@ -66,6 +66,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AttackTown(int32 damage, uint8 job);
 
+	//How far player is in Story
+	UPROPERTY(BlueprintReadWrite, Category = "Progress")
+	int32 Story = 0;
+
+	//which events the player viewed
+	UPROPERTY(BlueprintReadWrite, Category = "Progress")
+	TArray<bool> Events;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
 	int32 XP;
 
@@ -80,6 +88,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
 	int32 MiaNum;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
+	int32 KlaineNum;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
 	int32 TownGuardNum;

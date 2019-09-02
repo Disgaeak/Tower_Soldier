@@ -115,7 +115,7 @@ void APlayerBattleTester::LevelUp()
 		HP = MaxHP;
 		Atk += 3;
 		Def += 3;
-		AtkSpd = 2.3;
+		AtkSpd = 1.7;
 		Tier = 2;
 		classNam = EClassName::Knight;
 	}
@@ -125,7 +125,7 @@ void APlayerBattleTester::LevelUp()
 		HP = MaxHP;
 		Atk += 6;
 		Def += 5;
-		AtkSpd = 2.7;
+		AtkSpd = 1.f;
 		Tier = 3;
 		classNam = EClassName::General;
 	}

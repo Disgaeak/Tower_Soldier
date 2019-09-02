@@ -4,21 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "Characters/NPC.h"
-#include "NPCTrainer.generated.h"
+#include "NPCRecruiter.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class TOWERDEFENCE_API ANPCTrainer : public ANPC
+class TOWERDEFENCE_API ANPCRecruiter : public ANPC
 {
 	GENERATED_BODY()
-	
+
 public:
-	ANPCTrainer();
+	ANPCRecruiter();
 
 	//interface functions
 	virtual void dialogue();
-
-protected:
-	
 private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

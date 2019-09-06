@@ -57,3 +57,14 @@ void ATowerDefenceGameMode::AttackTown(int32 damage, uint8 job)
 		EscapeEnemy.Add(holder);
 	}
 }
+
+void ATowerDefenceGameMode::ProgressStory()
+{
+	MiaNum = 1;
+	KlaineNum = 1;
+
+	if (StageNum >= Story)
+	{
+		Story++;
+	}
+}

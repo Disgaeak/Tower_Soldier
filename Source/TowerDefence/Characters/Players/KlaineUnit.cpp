@@ -170,7 +170,7 @@ void AKlaineUnit::GainXP(int32 EXP)
 	} while (usedXp > 0);
 }
 
-void AKlaineUnit::GetAllStats(int32 & Lvl, int32 & AHp, int32 & AmaxHP, int32 & AAtk, int32 & ADef, int32 & AXP, int32 & AmaxXP, uint8 & jobnum)
+void AKlaineUnit::GetAllStats(int32 &Lvl, int32 &AHp, int32 &AmaxHP, int32 &AAtk, int32 &ADef, int32 &AXP, int32 &AmaxXP, uint8 &jobnum)
 {
 	Lvl = Lv; AHp = HP; AmaxHP = MaxHP; AAtk = Atk; ADef = Def; AXP = XP; AmaxXP = maxXP; jobnum = 2;
 }
@@ -179,11 +179,14 @@ void AKlaineUnit::RangeOverlap(AActor *Other)
 {
 	if (Other != nullptr && Other->ActorHasTag(FName("Enemy")))
 	{
-		bCanAttack = true;
-		if (!GetWorld()->GetTimerManager().IsTimerActive(AtkHandle))
-			GetWorld()->GetTimerManager().SetTimer(AtkHandle, this, &AKlaineUnit::StartAtkDmg, AtkSpd, true, 0.3);
+		if (!bCanAttack)
+		{
+			bCanAttack = true;
+			if (!GetWorld()->GetTimerManager().IsTimerActive(AtkHandle))
+				GetWorld()->GetTimerManager().SetTimer(AtkHandle, this, &AKlaineUnit::StartAtkDmg, AtkSpd, true, 0.3);
 
-		EnemyTarg = Cast<IBattleInterface>(Other);
+			EnemyTarg = Cast<IBattleInterface>(Other);
+		}
 	}
 }
 

@@ -66,6 +66,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AttackTown(int32 damage, uint8 job);
 
+	//check to see if progress story or not
+	UFUNCTION()
+	void ProgressStory();
+
 	//How far player is in Story
 	UPROPERTY(BlueprintReadWrite, Category = "Progress")
 	int32 Story = 0;

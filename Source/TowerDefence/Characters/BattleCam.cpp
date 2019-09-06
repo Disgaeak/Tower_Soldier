@@ -22,7 +22,7 @@ ABattleCam::ABattleCam()
 	Cam = CreateDefaultSubobject<UCameraComponent>(TEXT("MainCamera"));
 	Cam->SetupAttachment(RootComponent);
 
-	ToSpawn.SetNum(2);
+	ToSpawn.SetNum(4);
 }
 
 // Called when the game starts or when spawned
@@ -69,6 +69,13 @@ void ABattleCam::Point()
 			if (GM->TownGuardNum > 0)
 			{
 				GM->TownGuardNum--;
+				PointSpawn();
+			}
+			break;
+		case 2:
+			if (GM->KlaineNum > 0)
+			{
+				GM->KlaineNum--;
 				PointSpawn();
 			}
 			break;
@@ -185,7 +192,7 @@ void ABattleCam::endBattleSwitch()
 	ATowerDefenceCharacter* playChara = Cast<ATowerDefenceCharacter>(hubChara);
 	playChara->enableCharaInput();
 
-	GM->MiaNum = 1;
+	GM->ProgressStory();
 
 	//get rid of any remaining Ally
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Ally"), numofPlayers);

@@ -41,6 +41,8 @@ public:
 	EClassName classNam;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category = "Stats")
 	EJobName jobNam;
+	UPROPERTY(BlueprintReadWrite, category = "Stats")
+	bool HasFound; //used for find any enemies in atk range
 
 	FTimerHandle AtkHandle;
 	ATowerDefenceGameMode* GM;

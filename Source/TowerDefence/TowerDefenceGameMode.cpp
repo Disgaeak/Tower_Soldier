@@ -23,6 +23,7 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	KlaineNum = 1;
 	TownGuardNum = 3;
 
+	//0 = tutorial: klaine saves player. 1 = unlock 1st extra map
 	Events.SetNum(5);
 }
 
@@ -65,6 +66,10 @@ void ATowerDefenceGameMode::ProgressStory()
 
 	if (StageNum >= Story)
 	{
-		Story++;
+		if(StageNum == 2){}
+		else
+		{
+			Story++;
+		}
 	}
 }

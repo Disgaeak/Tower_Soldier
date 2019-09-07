@@ -16,8 +16,8 @@ AEnemySpawner::AEnemySpawner()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	maxWaveCount.SetNum(2); maxWaveCount[0] = 2; maxWaveCount[1] = 3;
-	numOfEnemytoSpawn.SetNum(2); numOfEnemytoSpawn[0] = 1; numOfEnemytoSpawn[1] = 2;
+	maxWaveCount.SetNum(3); maxWaveCount[0] = 2; maxWaveCount[1] = 3; maxWaveCount[2] = 5;
+	numOfEnemytoSpawn.SetNum(3); numOfEnemytoSpawn[0] = 1; numOfEnemytoSpawn[1] = 2; numOfEnemytoSpawn[2] = 4;
 }
 
 // Called when the game starts or when spawned

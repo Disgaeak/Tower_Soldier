@@ -31,6 +31,21 @@ void ABattleCam::BeginPlay()
 	Super::BeginPlay();
 	
 	if (GetWorld()->GetAuthGameMode()) { GM = Cast<ATowerDefenceGameMode>(GetWorld()->GetAuthGameMode()); }
+
+	switch (GM->GetStage())
+	{
+	case 0:
+		SetActorLocation(FVector(130,-4900, 1526));
+		break;
+	case 1:
+		SetActorLocation(FVector(-1776, -8127, 1526));
+		break;
+	case 2:
+		SetActorLocation(FVector(2216, -10637, 1526));
+		break;
+	default:
+		break;
+	}
 }
 
 // Called every frame
@@ -108,6 +123,9 @@ void ABattleCam::MoveForward(float Value)
 	case 1:
 		NewLOC = FVector(GetActorLocation().X + AsLOC.X, FMath::Clamp(GetActorLocation().Y, -10380.f, -5277.f) + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
 		break;
+	case 2:
+		NewLOC = FVector(GetActorLocation().X + AsLOC.X, FMath::Clamp(GetActorLocation().Y, -10892.f, -5171.f) + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
 	default:
 		break;
 	}
@@ -130,10 +148,12 @@ void ABattleCam::MoveRight(float Value)
 	case 1:
 		NewLOC = FVector(FMath::Clamp(GetActorLocation().X, -1928.f, 1871.f) + AsLOC.X, GetActorLocation().Y + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
 		break;
+	case 2:
+		NewLOC = FVector(FMath::Clamp(GetActorLocation().X, -1426.f, 2300.f) + AsLOC.X, GetActorLocation().Y + AsLOC.Y, GetActorLocation().Z + AsLOC.Z);
+		break;
 	default:
 		break;
 	}
-	
 
 	SetActorLocation(NewLOC);
 }
@@ -156,7 +176,7 @@ FHitResult ABattleCam::RayLine()
 		PC->DeprojectMousePositionToWorld(Start, WorldDir);
 	}
 	//set start location
-	End = Start + (WorldDir * 3000.f);
+	End = Start + (WorldDir * 6000.f);
 
 	//create trace parameters for Line casting
 	FCollisionQueryParams TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);

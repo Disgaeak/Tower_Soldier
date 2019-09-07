@@ -89,13 +89,13 @@ void APlayerBattleTester::LevelUp()
 	{
 	case 1:
 		MaxHP += FMath::RandRange(3, 6);
-		Atk += FMath::RandRange(1, 3);
+		Atk += FMath::RandRange(2, 3);
 		Def += FMath::RandRange(1, 2);
 		break;
 	case 2:
 		MaxHP += FMath::RandRange(10, 14);
-		Atk += FMath::RandRange(4, 6);
-		Def += FMath::RandRange(4, 6);
+		Atk += FMath::RandRange(4, 7);
+		Def += FMath::RandRange(3, 5);
 		break;
 	case 3:
 		MaxHP += FMath::RandRange(16, 20);
@@ -115,7 +115,7 @@ void APlayerBattleTester::LevelUp()
 		HP = MaxHP;
 		Atk += 3;
 		Def += 3;
-		AtkSpd = 1.7;
+		AtkSpd = 1.5;
 		Tier = 2;
 		classNam = EClassName::Knight;
 	}

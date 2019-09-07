@@ -23,7 +23,7 @@ ASoldierUnit::ASoldierUnit()
 	MaxHP = 12;
 	Atk = 3;
 	Def = 3;
-	AtkSpd = 2.5f;
+	AtkSpd = 2.3f;
 	XP = 0;
 	maxXP = Lv * Lv * Lv + 14;
 	Tier = 1;
@@ -133,13 +133,13 @@ void ASoldierUnit::LevelUp()
 	{
 	case 1:
 		MaxHP += FMath::RandRange(2, 5);
-		Atk += FMath::RandRange(1, 2);
+		Atk += FMath::RandRange(2, 3);
 		Def += FMath::RandRange(1, 2);
 		break;
 	case 2:
 		MaxHP += FMath::RandRange(8, 12);
-		Atk += FMath::RandRange(3, 5);
-		Def += FMath::RandRange(3, 5);
+		Atk += FMath::RandRange(4, 6);
+		Def += FMath::RandRange(2, 4);
 		break;
 	case 3:
 		MaxHP += FMath::RandRange(14, 18);
@@ -159,7 +159,7 @@ void ASoldierUnit::LevelUp()
 		HP = MaxHP;
 		Atk += 3;
 		Def += 3;
-		AtkSpd = 2.3;
+		AtkSpd = 1.8;
 		Tier = 2;
 		classNam = EClassName::Knight;
 	}
@@ -169,7 +169,7 @@ void ASoldierUnit::LevelUp()
 		HP = MaxHP;
 		Atk += 6;
 		Def += 5;
-		AtkSpd = 2.7;
+		AtkSpd = 1.3;
 		Tier = 3;
 		classNam = EClassName::General;
 	}

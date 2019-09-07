@@ -115,7 +115,7 @@ void AKlaineUnit::LevelUp()
 		HP = MaxHP;
 		Atk += 3;
 		Def += 3;
-		AtkSpd = 2.0;
+		AtkSpd = 1.8;
 		Tier = 2;
 		classNam = EClassName::Sentinel;
 	}
@@ -125,7 +125,7 @@ void AKlaineUnit::LevelUp()
 		HP = MaxHP;
 		Atk += 6;
 		Def += 5;
-		AtkSpd = 1.5;
+		AtkSpd = 1.3;
 		Tier = 3;
 		classNam = EClassName::Guardian;
 	}

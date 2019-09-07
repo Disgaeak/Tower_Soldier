@@ -15,16 +15,19 @@ ATowerDefenceGameMode::ATowerDefenceGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
-	// 0 = Mia, 1 = Soldier Unit, 2 = Klaine
-	PlayerStats.SetNum(3);
+	// 0 = Mia, 1 = Soldier Unit, 2 = Klaine, 3 = Sentinel Unit
+	PlayerStats.SetNum(4);
 	townMaxHP = 10;
 	TownHP = 10;
 	MiaNum = 1;
 	KlaineNum = 1;
 	TownGuardNum = 3;
+	SentinelNum = 0;
 
 	//0 = tutorial: klaine saves player. 1 = unlock 1st extra map
 	Events.SetNum(5);
+	//0 = Sentinel, 1 = Healer, 2 = Rider, 3 = Archer
+	Recruited.SetNum(4);
 }
 
 void ATowerDefenceGameMode::BeginPlay()

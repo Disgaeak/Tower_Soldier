@@ -31,21 +31,6 @@ void ABattleCam::BeginPlay()
 	Super::BeginPlay();
 	
 	if (GetWorld()->GetAuthGameMode()) { GM = Cast<ATowerDefenceGameMode>(GetWorld()->GetAuthGameMode()); }
-
-	switch (GM->GetStage())
-	{
-	case 0:
-		SetActorLocation(FVector(130,-4900, 1526));
-		break;
-	case 1:
-		SetActorLocation(FVector(-1776, -8127, 1526));
-		break;
-	case 2:
-		SetActorLocation(FVector(2216, -10637, 1526));
-		break;
-	default:
-		break;
-	}
 }
 
 // Called every frame
@@ -201,6 +186,21 @@ void ABattleCam::OpenMenu()
 	if (widCon != nullptr)
 	{
 		widCon->AddToViewport();
+	}
+
+	switch (GM->GetStage())
+	{
+	case 0:
+		SetActorLocation(FVector(130, -4900, 1526));
+		break;
+	case 1:
+		SetActorLocation(FVector(-1776, -8127, 1526));
+		break;
+	case 2:
+		SetActorLocation(FVector(2216, -10637, 1526));
+		break;
+	default:
+		break;
 	}
 }
 

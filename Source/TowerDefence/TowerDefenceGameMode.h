@@ -74,6 +74,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Progress")
 	int32 Story = 0;
 
+	//check which characters the Player bought(Recruited)
+	UPROPERTY(BlueprintReadWrite, Category = "Progress")
+	TArray<bool> Recruited;
+
 	//which events the player viewed
 	UPROPERTY(BlueprintReadWrite, Category = "Progress")
 	TArray<bool> Events;
@@ -98,6 +102,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
 	int32 TownGuardNum;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Deploy")
+	int32 SentinelNum;
 
 	//keeps track of all units stats to save game
 	UPROPERTY(BlueprintReadWrite, Category = "Stats")
